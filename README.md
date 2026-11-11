@@ -31,6 +31,7 @@ cp .env.example .env
 npm run db:migrate          # creates prisma/dev.db and applies prisma/migrations
 npm run db:seed             # loads the catalogue + an example journey and wallet
 npm run dev                 # http://localhost:3000
+npm test                    # unit tests (working-day arithmetic)
 ```
 
 ## Database
@@ -43,7 +44,21 @@ Two layers: the **catalogue** (`LifeEvent`, `StepTemplate`, `DocumentType`, `Ste
 
 ## External API
 
-TBD. Candidates: [Nager.Date](https://date.nager.at) (public holidays, to keep deadlines off non-working days) and [REST Countries](https://restcountries.com). No key required. Called from the server side only.
+[Nager.Date](https://date.nager.at) public-holiday API, no key required, called from the server only (`src/lib/nagerDate.ts`). It turns a step's typical waiting time ("5–10 working days") into real dates on the *Waiting for a reply* screen and sets the reminder date when a step is submitted. Responses are cached for a day per country and year. Every failure (offline, timeout, HTTP 429, unknown country, 5xx, malformed body) is mapped to a reason; the screen then falls back to weekends-only arithmetic and says so. The pure date logic is in `src/lib/workingDays.ts` with tests.
+
+[REST Countries](https://restcountries.com) is planned for the *find office* screen.
+
+## Screens
+
+| Route | Screens |
+|---|---|
+| `/[locale]/documents`, `/documents/new`, `/documents/[id]` | 11–14: documents wallet, add/scan, reading state, edit and delete with confirmation |
+| `/[locale]/journeys/[id]/steps` | 16: status of every step |
+| `/[locale]/journeys/[id]/steps/[stepId]` | 15, 17, 18, 19: requirements, waiting for a reply, rejected, recent corrections |
+| `/[locale]/journeys/[id]/complete` | 20: path complete |
+| every page | offline banner (screen 19), loading skeletons, error boundary with retry, 404 |
+
+Uploaded scans (JPEG/PNG/WebP/PDF, 2 MB max) are stored in the database and served from `/api/documents/[id]/file`.
 
 ## Locales
 
@@ -63,7 +78,10 @@ Translations live in `messages/<locale>.json`. To add a locale: copy `messages/e
 
 ## Known limitations
 
-TBD, including accessibility issues not fixed.
+- Croatian strings were drafted by a non-native speaker and are being reviewed by Maroje.
+- Unknown document or journey ids render the not-found screen but, because the page streams, with HTTP status 200.
+- Offline mode is read-only: pages already loaded stay readable and forms are disabled; there is no service worker, so a cold load without a connection fails.
+- Server Actions resolve the locale with `getLocale()`; next-intl notes root params are not yet supported there, so a future upgrade may need an explicit locale.
 
 ## Third-party code and attribution
 

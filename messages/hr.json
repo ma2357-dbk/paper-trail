@@ -12,7 +12,9 @@
   "nav": {
     "home": "Početna",
     "journeys": "Putovanja",
-    "documents": "Dokumenti"
+    "documents": "Dokumenti",
+    "skipToContent": "Preskoči na sadržaj",
+    "mainNav": "Glavna navigacija"
   },
   "common": {
     "loading": "Učitavanje…",
@@ -24,12 +26,19 @@
     "confirm": "Potvrdi",
     "offline": "Niste povezani",
     "errorTitle": "Nešto je pošlo po zlu",
-    "emptyTitle": "Još ništa nema"
+    "emptyTitle": "Još ništa nema",
+    "saving": "Spremanje…",
+    "offlineHint": "Niste povezani. Spojite se da biste spremili.",
+    "errorBody": "Nismo uspjeli učitati ovo. Vaši su podaci i dalje sigurni na uređaju."
   },
   "home": {
     "title": "Paper Trail",
     "intro": "Odaberite životni događaj i pogledajte svaki korak, dokument i rok koji se odnosi na vas.",
-    "i18nDemoLink": "Otvori demo stranicu za i18n"
+    "i18nDemoLink": "Otvori demo stranicu za i18n",
+    "documentsLink": "Moji dokumenti",
+    "journeysHeading": "Vaši putovi",
+    "stepsCount": "{count, plural, one {# korak} few {# koraka} other {# koraka}}",
+    "loadingJourneys": "Učitavanje putova…"
   },
   "i18nDemo": {
     "title": "Provjera internacionalizacije",
@@ -59,50 +68,54 @@
       }
     },
     "steps": {
-      "move-abroad.get-oib": {
-        "title": "Nabavite OIB",
-        "office": "Porezna uprava",
-        "summary": "Potreban za sve ostale korake: ugovore, banku, osiguranje."
+      "move-abroad": {
+        "get-oib": {
+          "title": "Nabavite OIB",
+          "office": "Porezna uprava",
+          "summary": "Potreban za sve ostale korake: ugovore, banku, osiguranje."
+        },
+        "register-address": {
+          "title": "Prijavite novu adresu",
+          "office": "Policijska uprava (MUP), šalter za strance",
+          "summary": "U roku od 30 dana od useljenja. Ponesite ugovor o najmu i dokaz o vlasništvu najmodavca."
+        },
+        "residence-permit": {
+          "title": "Zatražite dozvolu boravka",
+          "office": "Policijska uprava (MUP)",
+          "summary": "Privremeni boravak radi rada ili studija. Pristojba se plaća na šalteru."
+        },
+        "health-insurance": {
+          "title": "Prijavite se na zdravstveno osiguranje",
+          "office": "HZZO",
+          "summary": "Poslodavac vas prijavljuje, ali vi to potvrđujete i preuzimate iskaznicu."
+        },
+        "open-bank-account": {
+          "title": "Otvorite bankovni račun",
+          "office": "Bilo koja poslovnica banke",
+          "summary": "Potreban za plaću i najam. Banke traže OIB i dokaz o adresi."
+        }
       },
-      "move-abroad.register-address": {
-        "title": "Prijavite novu adresu",
-        "office": "Policijska uprava (MUP), šalter za strance",
-        "summary": "U roku od 30 dana od useljenja. Ponesite ugovor o najmu i dokaz o vlasništvu najmodavca."
-      },
-      "move-abroad.residence-permit": {
-        "title": "Zatražite dozvolu boravka",
-        "office": "Policijska uprava (MUP)",
-        "summary": "Privremeni boravak radi rada ili studija. Pristojba se plaća na šalteru."
-      },
-      "move-abroad.health-insurance": {
-        "title": "Prijavite se na zdravstveno osiguranje",
-        "office": "HZZO",
-        "summary": "Poslodavac vas prijavljuje, ali vi to potvrđujete i preuzimate iskaznicu."
-      },
-      "move-abroad.open-bank-account": {
-        "title": "Otvorite bankovni račun",
-        "office": "Bilo koja poslovnica banke",
-        "summary": "Potreban za plaću i najam. Banke traže OIB i dokaz o adresi."
-      },
-      "start-university.enrol": {
-        "title": "Upišite se na fakultet",
-        "office": "Studentska referada",
-        "summary": "Ponesite originale; referada zadržava kopije."
-      },
-      "start-university.student-id": {
-        "title": "Nabavite studentsku iskaznicu (X-icu)",
-        "office": "Studentski centar",
-        "summary": "Koristi se za prehranu i popuste na prijevoz."
-      },
-      "start-university.temporary-residence": {
-        "title": "Prijavite privremeno boravište",
-        "office": "Policijska uprava (MUP)",
-        "summary": "U roku od 30 dana od useljenja u dom ili stan."
-      },
-      "start-university.student-health-insurance": {
-        "title": "Prijavite studentsko zdravstveno osiguranje",
-        "office": "HZZO",
-        "summary": "Besplatno za redovite studente do 26 godina."
+      "start-university": {
+        "enrol": {
+          "title": "Upišite se na fakultet",
+          "office": "Studentska referada",
+          "summary": "Ponesite originale; referada zadržava kopije."
+        },
+        "student-id": {
+          "title": "Nabavite studentsku iskaznicu (X-icu)",
+          "office": "Studentski centar",
+          "summary": "Koristi se za prehranu i popuste na prijevoz."
+        },
+        "temporary-residence": {
+          "title": "Prijavite privremeno boravište",
+          "office": "Policijska uprava (MUP)",
+          "summary": "U roku od 30 dana od useljenja u dom ili stan."
+        },
+        "student-health-insurance": {
+          "title": "Prijavite studentsko zdravstveno osiguranje",
+          "office": "HZZO",
+          "summary": "Besplatno za redovite studente do 26 godina."
+        }
       }
     },
     "documentTypes": {
@@ -124,5 +137,159 @@
       "REJECTED": "Odbijeno, ponovite",
       "DONE": "Gotovo"
     }
+  },
+  "offline": {
+    "title": "Niste povezani.",
+    "body": "Možete čitati dokumente i korake. Promjene su blokirane dok se ponovno ne spojite."
+  },
+  "documents": {
+    "title": "Dokumenti",
+    "count": "{count, plural, =0 {Vaš je novčanik prazan} one {# dokument u novčaniku} few {# dokumenta u novčaniku} other {# dokumenata u novčaniku}}",
+    "add": "Dodaj",
+    "newTitle": "Dodaj dokument",
+    "backToWallet": "Natrag na dokumente",
+    "noType": "Bez vrste",
+    "hasFile": "Sken priložen",
+    "noFile": "Bez skena",
+    "attachedTo": "{count, plural, one {koristi se u # koraku} few {koristi se u # koraka} other {koristi se u # koraka}}",
+    "validUntil": "Vrijedi do {date}",
+    "expired": "Isteklo {date}",
+    "updatedAt": "Zadnja promjena {date}",
+    "scanAlt": "Sken dokumenta {name}",
+    "openFile": "Otvori {name}",
+    "attachedHeading": "{count, plural, one {Koristi se u # koraku} few {Koristi se u # koraka} other {Koristi se u # koraka}}",
+    "editHeading": "Uredi",
+    "dangerHeading": "Obriši ovaj dokument",
+    "dangerBody": "{count, plural, =0 {Nije priložen nijednom koraku.} one {Bit će uklonjen iz # koraka.} few {Bit će uklonjen iz # koraka.} other {Bit će uklonjen iz # koraka.}}",
+    "delete": "Obriši dokument",
+    "confirmDelete": {
+      "title": "Obrisati „{name}”?",
+      "body": "{count, plural, =0 {Ovo se ne može poništiti.} one {Bit će uklonjen i iz # koraka. Ovo se ne može poništiti.} few {Bit će uklonjen i iz # koraka. Ovo se ne može poništiti.} other {Bit će uklonjen i iz # koraka. Ovo se ne može poništiti.}}"
+    },
+    "empty": {
+      "title": "Još nema dokumenata",
+      "body": "Dodajte osobnu, ugovor o najmu ili potvrde jednom i priložite ih svakom koraku kojem trebaju.",
+      "cta": "Dodajte prvi dokument"
+    },
+    "notFound": {
+      "title": "Dokument nije pronađen",
+      "body": "Možda je obrisan."
+    },
+    "form": {
+      "name": "Naziv",
+      "nameHint": "Kako ga zovete, npr. „Putovnica” ili „Najam Ilica 5”.",
+      "type": "Vrsta",
+      "typeNone": "Nije postavljeno",
+      "validUntil": "Vrijedi do",
+      "file": "Sken ili fotografija",
+      "replaceFile": "Zamijeni sken",
+      "currentFile": "Trenutna datoteka: {name} ({size})",
+      "removeFile": "Ukloni trenutnu datoteku",
+      "fileHint": "JPEG, PNG, WebP ili PDF do 2 MB. Na mobitelu otvara kameru.",
+      "readingScan": "Čitanje skena…",
+      "create": "Spremi dokument",
+      "save": "Spremi promjene",
+      "errors": {
+        "nameRequired": "Dajte dokumentu naziv.",
+        "nameTooLong": "Naziv je predug (najviše 120 znakova).",
+        "invalidDate": "Datum nije valjan.",
+        "fileTooLarge": "Datoteka je veća od 2 MB. Snimite manju fotografiju ili komprimirajte PDF.",
+        "fileType": "Prihvaćaju se samo JPEG, PNG, WebP i PDF datoteke.",
+        "notFound": "Ovaj dokument više ne postoji."
+      }
+    }
+  },
+  "steps": {
+    "progress": "Gotovo {done} od {total} koraka",
+    "allDoneCta": "Pogledajte dovršeni put",
+    "replyBy": "Odgovor očekujte do {date}",
+    "deadline": "Rok {date}",
+    "backToSteps": "Svi koraci",
+    "office": "Gdje",
+    "deadlineLabel": "Rok",
+    "fee": "Pristojba",
+    "typicalWait": "Uobičajeno čekanje",
+    "workingDaysRange": "{min}–{max} radnih dana",
+    "blockedBy": "Prvo dovršite ovaj korak:",
+    "requirements": {
+      "heading": "Što ponijeti",
+      "ready": "(spremno {ready} od {total})",
+      "none": "Za ovaj korak ne trebaju dokumenti.",
+      "readyLabel": "Spremno",
+      "missingLabel": "Nedostaje",
+      "attachLabel": "Odaberite iz novčanika",
+      "attach": "Priloži",
+      "detach": "Ukloni",
+      "addToWallet": "Dodajte ga u novčanik"
+    },
+    "waiting": {
+      "heading": "Čekanje odgovora",
+      "submittedOn": "Predano {date}",
+      "window": "Odgovor očekujte između {from} i {to}",
+      "elapsed": "Prošlo {days, plural, one {# radni dan} few {# radna dana} other {# radnih dana}} od {max}",
+      "holidays": "{count, plural, one {# blagdan u ovom razdoblju:} few {# blagdana u ovom razdoblju:} other {# blagdana u ovom razdoblju:}}",
+      "overdue": "Uobičajeno vrijeme je prošlo. Razumno je nazvati ured.",
+      "noEstimate": "Za ovaj korak nemamo uobičajeno vrijeme čekanja.",
+      "fallback": {
+        "offline": "Blagdani se nisu mogli učitati (nema veze), pa datumi računaju samo vikende.",
+        "timeout": "Servis za blagdane je predugo odgovarao, pa datumi računaju samo vikende.",
+        "rate-limited": "Servis za blagdane je trenutno zauzet, pa datumi računaju samo vikende.",
+        "unsupported-country": "Nema kalendara blagdana za ovu zemlju, pa datumi računaju samo vikende.",
+        "server-error": "Servis za blagdane ne radi, pa datumi računaju samo vikende.",
+        "malformed": "Servis za blagdane poslao je neočekivan odgovor, pa datumi računaju samo vikende."
+      }
+    },
+    "rejected": {
+      "heading": "Odbijeno",
+      "reason": "Navedeni razlog: {note}",
+      "noReason": "Razlog nije zabilježen.",
+      "tip1": "Provjerite popis iznad: svaki nedostajući ili istekli dokument je označen.",
+      "tip2": "Pitajte ured što točno treba ispraviti i zapišite ovdje.",
+      "tip3": "Predajte ponovno kad je sve spremno; vrijeme čekanja počinje iznova."
+    },
+    "actions": {
+      "heading": "Ažuriraj status",
+      "start": "Započni ovaj korak",
+      "submitted": "Predao/la sam",
+      "resubmit": "Ponovno sam predao/la",
+      "done": "Označi kao gotovo",
+      "approved": "Odobreno, označi kao gotovo",
+      "reopen": "Ponovno otvori",
+      "reset": "Vrati na nije započeto",
+      "rejected": "Odbijeno je",
+      "rejectedLabel": "Što je ured rekao?",
+      "rejectedPlaceholder": "npr. na ugovoru nedostaje pečat"
+    },
+    "corrections": {
+      "heading": "Nedavne ispravke",
+      "intro": "Promjene koje su drugi primijetili: preseljeni uredi, nove pristojbe, novi obrasci.",
+      "empty": "Još ništa nije prijavljeno.",
+      "votes": "{confirmations, plural, one {# potvrda} few {# potvrde} other {# potvrda}}, {disputes, plural, one {# osporavanje} few {# osporavanja} other {# osporavanja}}",
+      "confirm": "I dalje vrijedi",
+      "dispute": "Nije točno",
+      "addLabel": "Prijavite promjenu",
+      "addHint": "Do 300 znakova. Napišite što se promijenilo i kada.",
+      "addButton": "Pošalji",
+      "saved": "Hvala, vaša je ispravka navedena iznad.",
+      "errors": {
+        "textRequired": "Napišite što se promijenilo.",
+        "textTooLong": "Neka bude kraće od 300 znakova."
+      }
+    }
+  },
+  "complete": {
+    "title": "Put je dovršen",
+    "body": "Svaki korak puta „{title}” je gotov.",
+    "notYetTitle": "Još nije gotovo",
+    "notYetBody": "{remaining, plural, one {# korak je još otvoren.} few {# koraka su još otvorena.} other {# koraka je još otvoreno.}}",
+    "stepsDone": "Koraci",
+    "stepsCount": "{count, plural, one {# korak gotov} few {# koraka gotova} other {# koraka gotovo}}",
+    "documentsUsed": "Dokumenti",
+    "documentsCount": "{count, plural, =0 {ništa nije priloženo} one {# dokument korišten} few {# dokumenta korištena} other {# dokumenata korišteno}}",
+    "duration": "Trajalo",
+    "daysCount": "{count, plural, =0 {manje od jednog dana} one {# dan} few {# dana} other {# dana}}",
+    "completedOn": "Dovršeno",
+    "keepDocuments": "Sačuvajte dokumente",
+    "backToSteps": "Natrag na korake"
   }
 }
