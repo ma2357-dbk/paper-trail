@@ -1,5 +1,4 @@
-import { getFormatter, getTranslations, setRequestLocale } from "next-intl/server";
-import { resolveLocale } from "@/i18n/locale";
+import { getFormatter, getLocale, getTranslations } from "next-intl/server";
 
 /**
  * Developer page that proves the i18n layer works. It is the evidence for
@@ -7,9 +6,8 @@ import { resolveLocale } from "@/i18n/locale";
  * every value here comes from Intl.* through next-intl, never from string
  * concatenation.
  */
-export default async function I18nDemoPage({ params }: PageProps<"/[locale]/dev/i18n">) {
-  const locale = await resolveLocale(params);
-  setRequestLocale(locale);
+export default async function I18nDemoPage() {
+  const locale = await getLocale();
   const t = await getTranslations("i18nDemo");
   const format = await getFormatter();
 
