@@ -28,10 +28,18 @@ git clone https://github.com/ma2357-dbk/paper-trail.git
 cd paper-trail
 npm install
 cp .env.example .env
-npx prisma migrate dev      # creates prisma/dev.db and applies migrations
-npx prisma db seed          # loads seed data (TBD)
+npm run db:migrate          # creates prisma/dev.db and applies prisma/migrations
+npm run db:seed             # loads the catalogue + an example journey and wallet
 npm run dev                 # http://localhost:3000
 ```
+
+## Database
+
+SQLite through Prisma 7 (`prisma/schema.prisma`, migrations in `prisma/migrations`, seed in `prisma/seed.ts`). The Prisma client is generated into `src/generated/prisma` on `npm install` (not committed). Timestamps are stored in UTC and converted for display. Text columns are UTF-8, so names like "Ивана Šimunić" round-trip unchanged.
+
+Two layers: the **catalogue** (`LifeEvent`, `StepTemplate`, `DocumentType`, `StepRequirement`) is seeded and its user-visible text lives in `messages/<locale>.json` under `catalog.*`, keyed by row id; **user data** (`Journey`, `Step`, `Document`, `StepDocument`, `Correction`) is created through the interface.
+
+`npm run db:reset` drops the database, re-applies migrations and re-seeds. `npm run db:studio` opens Prisma Studio to inspect the data.
 
 ## External API
 

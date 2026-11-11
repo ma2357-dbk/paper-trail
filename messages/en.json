@@ -46,5 +46,83 @@
     "currency": "Currency",
     "list": "List of three items",
     "sortedNames": "Sorted names with Č, Ć, Š"
+  },
+  "catalog": {
+    "events": {
+      "move-abroad": {
+        "title": "Moving to another country",
+        "summary": "Register, get your tax number, insurance and a bank account."
+      },
+      "start-university": {
+        "title": "Starting university",
+        "summary": "Enrol, get your student ID, residence and health insurance."
+      }
+    },
+    "steps": {
+      "move-abroad.get-oib": {
+        "title": "Get a personal identification number (OIB)",
+        "office": "Tax Administration (Porezna uprava)",
+        "summary": "Needed for every other step: contracts, bank, insurance."
+      },
+      "move-abroad.register-address": {
+        "title": "Register your new address",
+        "office": "Police administration (MUP), foreigners desk",
+        "summary": "Within 30 days of moving in. Bring the lease and the landlord's proof of ownership."
+      },
+      "move-abroad.residence-permit": {
+        "title": "Apply for a residence permit",
+        "office": "Police administration (MUP)",
+        "summary": "Temporary stay for work or study. Fee is paid at the counter."
+      },
+      "move-abroad.health-insurance": {
+        "title": "Register for health insurance",
+        "office": "Croatian Health Insurance Fund (HZZO)",
+        "summary": "Your employer registers you, but you confirm it and collect the card."
+      },
+      "move-abroad.open-bank-account": {
+        "title": "Open a bank account",
+        "office": "Any bank branch",
+        "summary": "Needed for salary and rent. Banks ask for OIB and proof of address."
+      },
+      "start-university.enrol": {
+        "title": "Enrol at the university",
+        "office": "Student office (referada)",
+        "summary": "Bring originals; the office keeps copies."
+      },
+      "start-university.student-id": {
+        "title": "Get your student card (X-ica)",
+        "office": "Student centre",
+        "summary": "Used for meals and transport discounts."
+      },
+      "start-university.temporary-residence": {
+        "title": "Register temporary residence",
+        "office": "Police administration (MUP)",
+        "summary": "Within 30 days of moving to the student dorm or flat."
+      },
+      "start-university.student-health-insurance": {
+        "title": "Register student health insurance",
+        "office": "Croatian Health Insurance Fund (HZZO)",
+        "summary": "Free for full-time students under 26."
+      }
+    },
+    "documentTypes": {
+      "id-card": "ID card",
+      "passport": "Passport",
+      "lease-contract": "Lease contract",
+      "proof-of-address": "Proof of address",
+      "photo": "Passport photo",
+      "employment-contract": "Employment contract",
+      "enrolment-confirmation": "Enrolment confirmation",
+      "birth-certificate": "Birth certificate",
+      "oib-certificate": "OIB certificate",
+      "health-insurance-card": "Health insurance card"
+    },
+    "status": {
+      "NOT_STARTED": "Not started",
+      "IN_PROGRESS": "In progress",
+      "SUBMITTED": "Submitted, waiting",
+      "REJECTED": "Rejected, retry",
+      "DONE": "Done"
+    }
   }
 }

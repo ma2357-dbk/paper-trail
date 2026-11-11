@@ -46,5 +46,83 @@
     "currency": "Valuta",
     "list": "Popis od tri stavke",
     "sortedNames": "Sortirana imena s Č, Ć, Š"
+  },
+  "catalog": {
+    "events": {
+      "move-abroad": {
+        "title": "Selidba u drugu državu",
+        "summary": "Prijavite se, nabavite OIB, osiguranje i bankovni račun."
+      },
+      "start-university": {
+        "title": "Početak studija",
+        "summary": "Upišite se, nabavite X-icu, prijavite boravište i zdravstveno osiguranje."
+      }
+    },
+    "steps": {
+      "move-abroad.get-oib": {
+        "title": "Nabavite OIB",
+        "office": "Porezna uprava",
+        "summary": "Potreban za sve ostale korake: ugovore, banku, osiguranje."
+      },
+      "move-abroad.register-address": {
+        "title": "Prijavite novu adresu",
+        "office": "Policijska uprava (MUP), šalter za strance",
+        "summary": "U roku od 30 dana od useljenja. Ponesite ugovor o najmu i dokaz o vlasništvu najmodavca."
+      },
+      "move-abroad.residence-permit": {
+        "title": "Zatražite dozvolu boravka",
+        "office": "Policijska uprava (MUP)",
+        "summary": "Privremeni boravak radi rada ili studija. Pristojba se plaća na šalteru."
+      },
+      "move-abroad.health-insurance": {
+        "title": "Prijavite se na zdravstveno osiguranje",
+        "office": "HZZO",
+        "summary": "Poslodavac vas prijavljuje, ali vi to potvrđujete i preuzimate iskaznicu."
+      },
+      "move-abroad.open-bank-account": {
+        "title": "Otvorite bankovni račun",
+        "office": "Bilo koja poslovnica banke",
+        "summary": "Potreban za plaću i najam. Banke traže OIB i dokaz o adresi."
+      },
+      "start-university.enrol": {
+        "title": "Upišite se na fakultet",
+        "office": "Studentska referada",
+        "summary": "Ponesite originale; referada zadržava kopije."
+      },
+      "start-university.student-id": {
+        "title": "Nabavite studentsku iskaznicu (X-icu)",
+        "office": "Studentski centar",
+        "summary": "Koristi se za prehranu i popuste na prijevoz."
+      },
+      "start-university.temporary-residence": {
+        "title": "Prijavite privremeno boravište",
+        "office": "Policijska uprava (MUP)",
+        "summary": "U roku od 30 dana od useljenja u dom ili stan."
+      },
+      "start-university.student-health-insurance": {
+        "title": "Prijavite studentsko zdravstveno osiguranje",
+        "office": "HZZO",
+        "summary": "Besplatno za redovite studente do 26 godina."
+      }
+    },
+    "documentTypes": {
+      "id-card": "Osobna iskaznica",
+      "passport": "Putovnica",
+      "lease-contract": "Ugovor o najmu",
+      "proof-of-address": "Dokaz o adresi",
+      "photo": "Fotografija za dokumente",
+      "employment-contract": "Ugovor o radu",
+      "enrolment-confirmation": "Potvrda o upisu",
+      "birth-certificate": "Rodni list",
+      "oib-certificate": "Potvrda o OIB-u",
+      "health-insurance-card": "Zdravstvena iskaznica"
+    },
+    "status": {
+      "NOT_STARTED": "Nije započeto",
+      "IN_PROGRESS": "U tijeku",
+      "SUBMITTED": "Predano, čeka se",
+      "REJECTED": "Odbijeno, ponovite",
+      "DONE": "Gotovo"
+    }
   }
 }

@@ -1,7 +1,14 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Get a free hosted Postgres database in seconds: `npx create-db`
+// Paper Trail data model.
+//
+// Two layers:
+//   1. Catalogue templates (LifeEvent, StepTemplate, DocumentType, StepRequirement)
+//      come from the seed. Their user-visible text lives in messages/<locale>.json
+//      under `catalog.*`, keyed by the template id, so the catalogue is translatable
+//      without duplicating rows per locale.
+//   2. User data (Journey, Step, Document, StepDocument, Correction) is created
+//      through the interface and must survive a restart.
+//
+// All DateTime columns are stored in UTC (ISO 8601) and converted for display.
 
 generator client {
   provider = "prisma-client"
@@ -10,4 +17,139 @@ generator client {
 
 datasource db {
   provider = "sqlite"
+}
+
+// ---------- catalogue (seeded) ----------
+
+/// A life event the user can start a journey for, e.g. "move-abroad".
+model LifeEvent {
+  id        String         @id // slug, also the i18n key: catalog.events.<id>.title
+  sortOrder Int
+  steps     StepTemplate[]
+  journeys  Journey[]
+}
+
+/// One administrative step inside a life event, e.g. "register-address".
+model StepTemplate {
+  id                     String            @id // "<lifeEventId>.<slug>", i18n key catalog.steps.<id>.*
+  lifeEventId            String
+  lifeEvent              LifeEvent         @relation(fields: [lifeEventId], references: [id], onDelete: Cascade)
+  sortOrder              Int
+  /// Deadline counted in days from the journey start; null = no fixed deadline.
+  deadlineDaysAfterStart Int?
+  /// Typical processing time after submission, in working days (Nager.Date is used to turn it into dates).
+  waitWorkingDaysMin     Int?
+  waitWorkingDaysMax     Int?
+  feeCents               Int?
+  currency               String            @default("EUR")
+  /// Steps that cannot start until this one is done.
+  dependsOnId            String?
+  dependsOn              StepTemplate?     @relation("StepDependency", fields: [dependsOnId], references: [id])
+  dependents             StepTemplate[]    @relation("StepDependency")
+  requirements           StepRequirement[]
+  steps                  Step[]
+  corrections            Correction[]
+
+  @@index([lifeEventId, sortOrder])
+}
+
+/// A kind of document, e.g. "id-card", "lease-contract". i18n key catalog.documentTypes.<id>
+model DocumentType {
+  id           String            @id
+  requirements StepRequirement[]
+  documents    Document[]
+}
+
+/// Which document types a step needs.
+model StepRequirement {
+  stepTemplateId String
+  stepTemplate   StepTemplate @relation(fields: [stepTemplateId], references: [id], onDelete: Cascade)
+  documentTypeId String
+  documentType   DocumentType @relation(fields: [documentTypeId], references: [id], onDelete: Cascade)
+
+  @@id([stepTemplateId, documentTypeId])
+}
+
+// ---------- user data ----------
+
+/// A user's run through one life event (Maroje's "Journeys" screen).
+model Journey {
+  id          String    @id @default(cuid())
+  lifeEventId String
+  lifeEvent   LifeEvent @relation(fields: [lifeEventId], references: [id])
+  /// Optional user-given label, e.g. "Move to Zagreb". Free text, any script.
+  title       String?
+  /// ISO 3166-1 alpha-2, filled from REST Countries.
+  countryCode String?
+  startedAt   DateTime  @default(now())
+  completedAt DateTime?
+  archivedAt  DateTime?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  steps       Step[]
+
+  @@index([archivedAt])
+}
+
+/// The user's progress on one step of a journey. Status values:
+/// NOT_STARTED | IN_PROGRESS | SUBMITTED | REJECTED | DONE (see src/lib/stepStatus.ts).
+model Step {
+  id             String         @id @default(cuid())
+  journeyId      String
+  journey        Journey        @relation(fields: [journeyId], references: [id], onDelete: Cascade)
+  stepTemplateId String
+  stepTemplate   StepTemplate   @relation(fields: [stepTemplateId], references: [id])
+  status         String         @default("NOT_STARTED")
+  submittedAt    DateTime?
+  /// Next reminder, set from the typical waiting time.
+  reminderAt     DateTime?
+  /// Why the office rejected it, in the user's words.
+  rejectionNote  String?
+  note           String?
+  updatedAt      DateTime       @updatedAt
+  attachments    StepDocument[]
+
+  @@unique([journeyId, stepTemplateId])
+}
+
+/// A document in the user's wallet (Hlib's main entity: full CRUD).
+model Document {
+  id             String         @id @default(cuid())
+  /// User-visible name, free text in any script (stored as UTF-8).
+  name           String
+  documentTypeId String?
+  documentType   DocumentType?  @relation(fields: [documentTypeId], references: [id], onDelete: SetNull)
+  validUntil     DateTime?
+  fileName       String?
+  mimeType       String?
+  sizeBytes      Int?
+  /// The uploaded file itself. Small scans only; kept in the DB so the seed and the offline screen stay self-contained.
+  data           Bytes?
+  createdAt      DateTime       @default(now())
+  updatedAt      DateTime       @updatedAt
+  attachments    StepDocument[]
+}
+
+/// A wallet document attached to a journey step.
+model StepDocument {
+  stepId     String
+  step       Step     @relation(fields: [stepId], references: [id], onDelete: Cascade)
+  documentId String
+  document   Document @relation(fields: [documentId], references: [id], onDelete: Cascade)
+  attachedAt DateTime @default(now())
+
+  @@id([stepId, documentId])
+}
+
+/// A change reported by users for a step ("office moved to Savska 41").
+model Correction {
+  id             String       @id @default(cuid())
+  stepTemplateId String
+  stepTemplate   StepTemplate @relation(fields: [stepTemplateId], references: [id], onDelete: Cascade)
+  text           String
+  confirmations  Int          @default(0)
+  disputes       Int          @default(0)
+  createdAt      DateTime     @default(now())
+
+  @@index([stepTemplateId, createdAt])
 }
