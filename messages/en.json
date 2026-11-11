@@ -1,0 +1,50 @@
+{
+  "app": {
+    "name": "Paper Trail",
+    "tagline": "A life-event guide through bureaucracy"
+  },
+  "locale": {
+    "label": "Language",
+    "en": "English",
+    "hr": "Hrvatski",
+    "ru": "Русский"
+  },
+  "nav": {
+    "home": "Home",
+    "journeys": "Journeys",
+    "documents": "Documents"
+  },
+  "common": {
+    "loading": "Loading…",
+    "retry": "Try again",
+    "back": "Back",
+    "save": "Save",
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "confirm": "Confirm",
+    "offline": "You're offline",
+    "errorTitle": "Something went wrong",
+    "emptyTitle": "Nothing here yet"
+  },
+  "home": {
+    "title": "Paper Trail",
+    "intro": "Pick a life event and see every step, document and deadline that applies to you.",
+    "i18nDemoLink": "Open the i18n demo page"
+  },
+  "i18nDemo": {
+    "title": "Internationalisation check",
+    "pluralsHeading": "Plural rules",
+    "documentsCount": "{count, plural, =0 {No documents} one {# document} other {# documents}}",
+    "formattingHeading": "Locale-aware formatting",
+    "shortDate": "Short date",
+    "longDate": "Long date with weekday",
+    "time": "Time",
+    "relativeTime": "Relative time",
+    "largeNumber": "Large number",
+    "decimalNumber": "Decimal number",
+    "percentage": "Percentage",
+    "currency": "Currency",
+    "list": "List of three items",
+    "sortedNames": "Sorted names with Č, Ć, Š"
+  }
+}
