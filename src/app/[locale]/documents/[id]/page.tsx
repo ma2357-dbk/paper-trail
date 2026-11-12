@@ -67,7 +67,7 @@ async function DocumentContent({ params }: PageProps<"/[locale]/documents/[id]">
         ← {t("backToWallet")}
       </Link>
       <div>
-        <h1 className="text-2xl font-semibold">{document.name}</h1>
+        <h1 className="break-words text-2xl font-semibold">{document.name}</h1>
         <p className="text-sm text-neutral-700">
           {t("updatedAt", { date: format.dateTime(document.updatedAt, { dateStyle: "medium", timeStyle: "short" }) })}
         </p>

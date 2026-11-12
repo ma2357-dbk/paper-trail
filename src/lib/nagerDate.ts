@@ -10,7 +10,9 @@ import { addWorkingDays, countWorkingDays } from "./workingDays";
  * fallback (weekends only) instead of crashing.
  */
 
-const BASE_URL = "https://date.nager.at/api/v3";
+// Overridable so a reviewer can demonstrate the failure states without
+// cutting the network (e.g. NAGER_DATE_BASE_URL=http://127.0.0.1:9/api/v3).
+const BASE_URL = process.env.NAGER_DATE_BASE_URL ?? "https://date.nager.at/api/v3";
 const TIMEOUT_MS = 5000;
 
 export type HolidayFailure =
