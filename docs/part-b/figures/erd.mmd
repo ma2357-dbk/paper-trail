@@ -1,0 +1,82 @@
+erDiagram
+    LifeEvent ||--o{ StepTemplate : "has steps"
+    LifeEvent ||--o{ Journey : "started as"
+    StepTemplate ||--o{ StepRequirement : "needs"
+    DocumentType ||--o{ StepRequirement : "required by"
+    StepTemplate o|--o{ StepTemplate : "dependsOn"
+    StepTemplate ||--o{ Step : "template of"
+    StepTemplate ||--o{ Correction : "reported for"
+    DocumentType |o--o{ Document : "classifies"
+    Journey ||--o{ Step : "contains"
+    Step ||--o{ StepDocument : "attaches"
+    Document ||--o{ StepDocument : "attached to"
+
+    LifeEvent {
+        string id PK "slug, i18n key"
+        int sortOrder
+    }
+    StepTemplate {
+        string id PK "event.slug"
+        string lifeEventId FK
+        int sortOrder
+        int deadlineDaysAfterStart "nullable"
+        int waitWorkingDaysMin "nullable"
+        int waitWorkingDaysMax "nullable"
+        int feeCents "nullable"
+        string currency "default EUR"
+        string dependsOnId FK "nullable, self"
+    }
+    DocumentType {
+        string id PK "slug, i18n key"
+    }
+    StepRequirement {
+        string stepTemplateId PK, FK
+        string documentTypeId PK, FK
+    }
+    Journey {
+        string id PK "cuid"
+        string lifeEventId FK
+        string title "nullable, any script"
+        string countryCode "ISO 3166-1 alpha-2"
+        datetime startedAt "UTC"
+        datetime completedAt "nullable"
+        datetime archivedAt "nullable, soft delete"
+        datetime createdAt
+        datetime updatedAt
+    }
+    Step {
+        string id PK "cuid"
+        string journeyId FK
+        string stepTemplateId FK
+        string status "NOT_STARTED..DONE"
+        datetime submittedAt "nullable"
+        datetime reminderAt "nullable, from Nager.Date"
+        string rejectionNote "nullable"
+        string note "nullable"
+        datetime updatedAt
+    }
+    Document {
+        string id PK "cuid"
+        string name "UTF-8, any script"
+        string documentTypeId FK "nullable, SetNull"
+        datetime validUntil "nullable"
+        string fileName "nullable"
+        string mimeType "nullable"
+        int sizeBytes "nullable"
+        bytes data "scan, max 2 MB"
+        datetime createdAt
+        datetime updatedAt
+    }
+    StepDocument {
+        string stepId PK, FK
+        string documentId PK, FK
+        datetime attachedAt
+    }
+    Correction {
+        string id PK "cuid"
+        string stepTemplateId FK
+        string text "max 300"
+        int confirmations
+        int disputes
+        datetime createdAt
+    }
