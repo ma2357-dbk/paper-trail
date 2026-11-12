@@ -28,3 +28,11 @@ from documentation — the repository is the evidence, this is the guided tour.
   (see `.env.example`), which makes every holiday request fail with a connection error.
 - Diagrams: Mermaid sources `figures/erd.mmd` and `figures/architecture.mmd`, rendered with
   Mermaid 11. GitHub renders the same sources inline in the Markdown files.
+
+## Filled template
+
+`UX_Deliverable2_PartB_Hlib-sections.docx` is the official template with sections 2, 4, 5, 6.2–6.4,
+6.7 and 7 filled in from the Markdown files above (figures embedded). It is generated, not edited by
+hand: `python fill-template.py <template.docx> docs/part-b <out.docx> --with-7` (needs
+`python-docx`). Maroje fills sections 1, 3, 6.1, 6.5, 6.6, 6.8, 8, 9, 12 and his part of 7 in the
+same file and exports the PDF.

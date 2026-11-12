@@ -69,7 +69,7 @@ export async function createDocument(
   });
 
   revalidatePath("/", "layout");
-  redirect({ href: `/documents/${document.id}`, locale: await getActionLocale() });
+  redirect({ href: `/documents/${document.id}#document-title`, locale: await getActionLocale() });
   return {};
 }
 
@@ -100,7 +100,7 @@ export async function updateDocument(
   });
 
   revalidatePath("/", "layout");
-  redirect({ href: `/documents/${id}`, locale: await getActionLocale() });
+  redirect({ href: `/documents/${id}#document-title`, locale: await getActionLocale() });
   return {};
 }
 
@@ -111,5 +111,5 @@ export async function deleteDocument(formData: FormData) {
     await prisma.document.deleteMany({ where: { id } });
   }
   revalidatePath("/", "layout");
-  redirect({ href: "/documents", locale: await getActionLocale() });
+  redirect({ href: "/documents#documents-title", locale: await getActionLocale() });
 }

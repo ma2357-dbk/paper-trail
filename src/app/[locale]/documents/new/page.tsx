@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import { Suspense } from "react";
 import { connection } from "next/server";
 import { getTranslations, getLocale } from "next-intl/server";
@@ -8,6 +9,11 @@ import { documentTypeLabel } from "@/lib/catalog";
 import { prisma } from "@/lib/db";
 import { ui } from "@/lib/ui";
 import { createDocument } from "../actions";
+
+export async function generateMetadata(): Promise<Metadata> {
+  const t = await getTranslations("documents");
+  return { title: t("newTitle") };
+}
 
 /** Screen 12: add a document, optionally scanning it with the phone camera. */
 export default function NewDocumentPage(props: PageProps<"/[locale]/documents/new">) {

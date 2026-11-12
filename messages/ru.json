@@ -220,6 +220,7 @@
       "attachLabel": "Выберите из кошелька",
       "attach": "Приложить",
       "detach": "Убрать",
+      "detachNamed": "Убрать {name}",
       "addToWallet": "Добавить в кошелёк"
     },
     "waiting": {

@@ -1,15 +1,25 @@
+import type { Metadata } from "next";
 import { Suspense } from "react";
 import { notFound } from "next/navigation";
 import { connection } from "next/server";
 import { getFormatter, getTranslations, getLocale } from "next-intl/server";
 import { ConfirmDelete } from "@/components/ConfirmDelete";
 import { DocumentForm } from "@/components/DocumentForm";
+import { FocusOnHash } from "@/components/FocusOnHash";
 import { LoadingSkeleton } from "@/components/LoadingSkeleton";
 import { Link } from "@/i18n/navigation";
 import { documentTypeLabel, stepTitle } from "@/lib/catalog";
 import { prisma } from "@/lib/db";
+import { now } from "@/lib/time";
 import { ui } from "@/lib/ui";
 import { deleteDocument, updateDocument } from "../actions";
+
+/** The document name is the page title, so a screen reader announces which document opened. */
+export async function generateMetadata({ params }: PageProps<"/[locale]/documents/[id]">): Promise<Metadata> {
+  const { id } = await params;
+  const document = await prisma.document.findUnique({ where: { id }, select: { name: true } });
+  return { title: document?.name };
+}
 
 /** Screen 14: document details, edit and delete with confirmation. */
 export default function DocumentPage(props: PageProps<"/[locale]/documents/[id]">) {
@@ -63,11 +73,12 @@ async function DocumentContent({ params }: PageProps<"/[locale]/documents/[id]">
 
   return (
     <section className="flex flex-col gap-6">
+      <FocusOnHash key={now()} />
       <Link href="/documents" className={ui.link}>
         ← {t("backToWallet")}
       </Link>
       <div>
-        <h1 className="break-words text-2xl font-semibold">{document.name}</h1>
+        <h1 id="document-title" className="break-words text-2xl font-semibold">{document.name}</h1>
         <p className="text-sm text-neutral-700">
           {t("updatedAt", { date: format.dateTime(document.updatedAt, { dateStyle: "medium", timeStyle: "short" }) })}
         </p>

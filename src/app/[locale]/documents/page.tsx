@@ -1,6 +1,8 @@
+import type { Metadata } from "next";
 import { Suspense } from "react";
 import { connection } from "next/server";
 import { getFormatter, getTranslations } from "next-intl/server";
+import { FocusOnHash } from "@/components/FocusOnHash";
 import { LoadingSkeleton } from "@/components/LoadingSkeleton";
 import { Link } from "@/i18n/navigation";
 import { documentTypeLabel } from "@/lib/catalog";
@@ -9,6 +11,11 @@ import { now } from "@/lib/time";
 import { ui } from "@/lib/ui";
 
 const SOON_DAYS = 30;
+
+export async function generateMetadata(): Promise<Metadata> {
+  const t = await getTranslations("documents");
+  return { title: t("title") };
+}
 
 /** Screen 11: the documents wallet. */
 export default function DocumentsPage(props: PageProps<"/[locale]/documents">) {
@@ -43,9 +50,10 @@ async function DocumentsContent({ params }: PageProps<"/[locale]/documents">) {
 
   return (
     <section className="flex flex-col gap-4">
+      <FocusOnHash key={nowMs} />
       <div className="flex items-start justify-between gap-3">
         <div>
-          <h1 className="text-2xl font-semibold">{t("title")}</h1>
+          <h1 id="documents-title" className="text-2xl font-semibold">{t("title")}</h1>
           <p className="text-neutral-700">{t("count", { count: documents.length })}</p>
         </div>
         <Link href="/documents/new" className={ui.buttonPrimary}>

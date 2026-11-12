@@ -25,6 +25,18 @@ export type HolidayFailure =
 
 export type Holiday = { date: string; localName: string; name: string };
 
+/**
+ * Language of `localName` for the countries a journey can have, so the UI can
+ * mark the holiday name with `lang` for screen readers. Unknown → undefined
+ * (the name is then read in the page language, as before).
+ */
+const HOLIDAY_LANGUAGE: Record<string, string> = {
+  HR: "hr", SI: "sl", RS: "sr", BA: "bs", ME: "sr", AT: "de", DE: "de", IT: "it", HU: "hu", CZ: "cs", SK: "sk", PL: "pl", UA: "uk", RU: "ru", GB: "en", IE: "en",
+};
+export function holidayLanguage(countryCode: string | null | undefined): string | undefined {
+  return countryCode ? HOLIDAY_LANGUAGE[countryCode] : undefined;
+}
+
 export type HolidayResult =
   | { ok: true; holidays: Holiday[] }
   | { ok: false; reason: HolidayFailure };
