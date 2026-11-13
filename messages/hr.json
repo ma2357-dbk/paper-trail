@@ -22,7 +22,7 @@
     "back": "Natrag",
     "save": "Spremi",
     "cancel": "Odustani",
-    "delete": "Izbriši",
+    "delete": "Obriši",
     "confirm": "Potvrdi",
     "offline": "Niste povezani",
     "errorTitle": "Nešto je pošlo po zlu",
@@ -80,7 +80,7 @@
           "summary": "U roku od 30 dana od useljenja. Ponesite ugovor o najmu i dokaz o vlasništvu najmodavca."
         },
         "residence-permit": {
-          "title": "Zatražite dozvolu boravka",
+          "title": "Zatražite dozvolu za privremeni boravak",
           "office": "Policijska uprava (MUP)",
           "summary": "Privremeni boravak radi rada ili studija. Pristojba se plaća na šalteru."
         },
@@ -168,7 +168,7 @@
     },
     "empty": {
       "title": "Još nema dokumenata",
-      "body": "Dodajte osobnu, ugovor o najmu ili potvrde jednom i priložite ih svakom koraku kojem trebaju.",
+      "body": "Dodajte osobnu iskaznicu, ugovor o najmu ili potvrde jednom i priložite ih svakom koraku kojem trebaju.",
       "cta": "Dodajte prvi dokument"
     },
     "notFound": {
@@ -224,8 +224,8 @@
     },
     "waiting": {
       "heading": "Čekanje odgovora",
-      "submittedOn": "Predano {date}",
-      "window": "Odgovor očekujte između {from} i {to}",
+      "submittedOn": "Predano {date}.",
+      "window": "Odgovor očekujte između {from} i {to}.",
       "elapsed": "Prošlo {days, plural, one {# radni dan} few {# radna dana} other {# radnih dana}} od {max}",
       "holidays": "{count, plural, one {# blagdan u ovom razdoblju:} few {# blagdana u ovom razdoblju:} other {# blagdana u ovom razdoblju:}}",
       "overdue": "Uobičajeno vrijeme je prošlo. Razumno je nazvati ured.",
