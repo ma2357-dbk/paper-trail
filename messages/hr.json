@@ -36,7 +36,7 @@
     "intro": "Odaberite životni događaj i pogledajte svaki korak, dokument i rok koji se odnosi na vas.",
     "i18nDemoLink": "Otvori demo stranicu za i18n",
     "documentsLink": "Moji dokumenti",
-    "journeysHeading": "Vaši putovi",
+    "journeysHeading": "Vaša putovanja",
     "stepsCount": "{count, plural, one {# korak} few {# koraka} other {# koraka}}",
     "loadingJourneys": "Učitavanje putova…"
   },
