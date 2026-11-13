@@ -91,7 +91,7 @@ async function main() {
   // Example user data (only when the wallet is empty, so re-seeding does not duplicate).
   if ((await prisma.document.count()) === 0) {
     const idCard = await prisma.document.create({
-      data: { name: "Osobna iskaznica · Ivana Šimunić", documentTypeId: "id-card", validUntil: new Date("2031-03-14T00:00:00Z") },
+      data: { name: "Osobna iskaznica · Ивана Šimunić", documentTypeId: "id-card", validUntil: new Date("2031-03-14T00:00:00Z") },
     });
     const lease = await prisma.document.create({
       data: { name: "Ugovor o najmu – Savska cesta 41", documentTypeId: "lease-contract" },
