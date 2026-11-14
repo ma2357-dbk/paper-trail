@@ -13,7 +13,10 @@ export default async function HomePage() {
         <h1 className="text-2xl font-semibold">{t("title")}</h1>
         <p className="text-neutral-700">{t("intro")}</p>
         <div className="flex flex-wrap gap-2">
-          <Link className={ui.buttonPrimary} href="/documents">
+          <Link className={ui.buttonPrimary} href="/events">
+            {t("startLink")}
+          </Link>
+          <Link className={ui.buttonSecondary} href="/documents">
             {t("documentsLink")}
           </Link>
           <Link className={ui.buttonSecondary} href="/dev/i18n">

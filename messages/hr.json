@@ -22,7 +22,7 @@
     "back": "Natrag",
     "save": "Spremi",
     "cancel": "Odustani",
-    "delete": "Izbriši",
+    "delete": "Obriši",
     "confirm": "Potvrdi",
     "offline": "Niste povezani",
     "errorTitle": "Nešto je pošlo po zlu",
@@ -32,13 +32,52 @@
     "errorBody": "Nismo uspjeli učitati ovo. Vaši su podaci i dalje sigurni na uređaju."
   },
   "home": {
+    "startLink": "Započni novo putovanje",
     "title": "Paper Trail",
     "intro": "Odaberite životni događaj i pogledajte svaki korak, dokument i rok koji se odnosi na vas.",
     "i18nDemoLink": "Otvori demo stranicu za i18n",
     "documentsLink": "Moji dokumenti",
-    "journeysHeading": "Vaši putovi",
+    "journeysHeading": "Vaša putovanja",
     "stepsCount": "{count, plural, one {# korak} few {# koraka} other {# koraka}}",
     "loadingJourneys": "Učitavanje putova…"
+  },
+  "pickEvent": {
+    "title": "Što se mijenja u vašem životu?",
+    "intro": "Odaberite jedno, a mi ćemo složiti popis koraka, dokumenata i rokova.",
+    "stepsCount": "{count, plural, one {# korak} few {# koraka} other {# koraka}}",
+    "start": "Započni",
+    "empty": {
+      "title": "Nema dostupnih životnih događaja",
+      "body": "Katalog je prazan. Pokrenite seed da ga učitate."
+    }
+  },
+  "journeys": {
+    "title": "Vaša putovanja",
+    "count": "{count, plural, =0 {Još nema putovanja} one {# putovanje} few {# putovanja} other {# putovanja}}",
+    "add": "Novo putovanje",
+    "edit": "Preimenuj",
+    "backToJourneys": "Sva putovanja",
+    "editTitle": "Preimenuj putovanje",
+    "form": {
+      "title": "Naziv",
+      "hint": "Ostavite prazno za naziv životnog događaja. Najviše 80 znakova.",
+      "save": "Spremi promjene",
+      "errors": {
+        "nameTooLong": "Naziv je predug (najviše 80 znakova).",
+        "notFound": "Ovo putovanje više ne postoji."
+      }
+    },
+    "progress": "Gotovo {done} od {total} koraka",
+    "delete": "Obriši",
+    "confirmDelete": {
+      "title": "Obrisati „{name}”?",
+      "body": "Svi koraci bit će uklonjeni. Ovo se ne može poništiti."
+    },
+    "empty": {
+      "title": "Još nema putovanja",
+      "body": "Odaberite životni događaj, a mi ćemo složiti popis koraka.",
+      "cta": "Započni putovanje"
+    }
   },
   "i18nDemo": {
     "title": "Provjera internacionalizacije",
@@ -80,7 +119,7 @@
           "summary": "U roku od 30 dana od useljenja. Ponesite ugovor o najmu i dokaz o vlasništvu najmodavca."
         },
         "residence-permit": {
-          "title": "Zatražite dozvolu boravka",
+          "title": "Zatražite dozvolu za privremeni boravak",
           "office": "Policijska uprava (MUP)",
           "summary": "Privremeni boravak radi rada ili studija. Pristojba se plaća na šalteru."
         },
@@ -168,7 +207,7 @@
     },
     "empty": {
       "title": "Još nema dokumenata",
-      "body": "Dodajte osobnu, ugovor o najmu ili potvrde jednom i priložite ih svakom koraku kojem trebaju.",
+      "body": "Dodajte osobnu iskaznicu, ugovor o najmu ili potvrde jednom i priložite ih svakom koraku kojem trebaju.",
       "cta": "Dodajte prvi dokument"
     },
     "notFound": {
@@ -225,8 +264,8 @@
     },
     "waiting": {
       "heading": "Čekanje odgovora",
-      "submittedOn": "Predano {date}",
-      "window": "Odgovor očekujte između {from} i {to}",
+      "submittedOn": "Predano {date}.",
+      "window": "Odgovor očekujte između {from} i {to}.",
       "elapsed": "Prošlo {days, plural, one {# radni dan} few {# radna dana} other {# radnih dana}} od {max}",
       "holidays": "{count, plural, one {# blagdan u ovom razdoblju:} few {# blagdana u ovom razdoblju:} other {# blagdana u ovom razdoblju:}}",
       "overdue": "Uobičajeno vrijeme je prošlo. Razumno je nazvati ured.",

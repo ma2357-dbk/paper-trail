@@ -52,6 +52,9 @@ export default async function LocaleLayout({ children }: LayoutProps<"/[locale]"
               <Link href="/documents" className={`min-h-11 inline-flex items-center text-sm underline underline-offset-2 ${ui.focus}`}>
                 {t("documents")}
               </Link>
+              <Link href="/journeys" className="min-h-11 inline-flex items-center text-sm underline underline-offset-2">
+                {t("journeys")}
+              </Link>
             </nav>
             {/* usePathname() is runtime data; the boundary keeps the layout shell static. */}
             <Suspense fallback={null}>

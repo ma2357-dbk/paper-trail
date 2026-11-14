@@ -32,6 +32,7 @@
     "errorBody": "We couldn't load this. Your data is still safe on this device."
   },
   "home": {
+    "startLink": "Start a new journey",
     "title": "Paper Trail",
     "intro": "Pick a life event and see every step, document and deadline that applies to you.",
     "i18nDemoLink": "Open the i18n demo page",
@@ -39,6 +40,44 @@
     "journeysHeading": "Your journeys",
     "stepsCount": "{count, plural, one {# step} other {# steps}}",
     "loadingJourneys": "Loading journeys…"
+  },
+  "pickEvent": {
+    "title": "What is changing in your life?",
+    "intro": "Pick one and we will build your list of steps, documents and deadlines.",
+    "stepsCount": "{count, plural, one {# step} other {# steps}}",
+    "start": "Start",
+    "empty": {
+      "title": "No life events available",
+      "body": "The catalogue is empty. Run the seed to load it."
+    }
+  },
+  "journeys": {
+    "title": "Your journeys",
+    "count": "{count, plural, =0 {No journeys yet} one {# journey} other {# journeys}}",
+    "add": "New journey",
+    "edit": "Rename",
+    "backToJourneys": "All journeys",
+    "editTitle": "Rename journey",
+    "form": {
+      "title": "Name",
+      "hint": "Leave empty to use the name of the life event. 80 characters max.",
+      "save": "Save changes",
+      "errors": {
+        "nameTooLong": "The name is too long (80 characters max).",
+        "notFound": "This journey no longer exists."
+      }
+    },
+    "progress": "{done} of {total} steps done",
+    "delete": "Delete",
+    "confirmDelete": {
+      "title": "Delete “{name}”?",
+      "body": "All its steps will be removed. This cannot be undone."
+    },
+    "empty": {
+      "title": "No journeys yet",
+      "body": "Pick a life event and we will build your list of steps.",
+      "cta": "Start a journey"
+    }
   },
   "i18nDemo": {
     "title": "Internationalisation check",
