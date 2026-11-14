@@ -55,6 +55,18 @@
     "title": "Your journeys",
     "count": "{count, plural, =0 {No journeys yet} one {# journey} other {# journeys}}",
     "add": "New journey",
+    "edit": "Rename",
+    "backToJourneys": "All journeys",
+    "editTitle": "Rename journey",
+    "form": {
+      "title": "Name",
+      "hint": "Leave empty to use the name of the life event. 80 characters max.",
+      "save": "Save changes",
+      "errors": {
+        "nameTooLong": "The name is too long (80 characters max).",
+        "notFound": "This journey no longer exists."
+      }
+    },
     "progress": "{done} of {total} steps done",
     "delete": "Delete",
     "confirmDelete": {

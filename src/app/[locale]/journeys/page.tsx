@@ -63,7 +63,10 @@ async function JourneysContent() {
                     {t("progress", { done, total: journey.steps.length })}
                   </span>
                 </Link>
-                <div>
+                <div className="flex flex-wrap gap-2">
+                  <Link href={`/journeys/${journey.id}/edit`} className={ui.buttonSecondary}>
+                    {t("edit")}
+                  </Link>
                   <ConfirmDelete
                     action={deleteJourney}
                     id={journey.id}

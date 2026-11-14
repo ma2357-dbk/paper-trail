@@ -55,6 +55,18 @@
     "title": "Vaša putovanja",
     "count": "{count, plural, =0 {Još nema putovanja} one {# putovanje} few {# putovanja} other {# putovanja}}",
     "add": "Novo putovanje",
+    "edit": "Preimenuj",
+    "backToJourneys": "Sva putovanja",
+    "editTitle": "Preimenuj putovanje",
+    "form": {
+      "title": "Naziv",
+      "hint": "Ostavite prazno za naziv životnog događaja. Najviše 80 znakova.",
+      "save": "Spremi promjene",
+      "errors": {
+        "nameTooLong": "Naziv je predug (najviše 80 znakova).",
+        "notFound": "Ovo putovanje više ne postoji."
+      }
+    },
     "progress": "Gotovo {done} od {total} koraka",
     "delete": "Obriši",
     "confirmDelete": {
