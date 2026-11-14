@@ -52,7 +52,7 @@ export default async function LocaleLayout({ children }: LayoutProps<"/[locale]"
               <Link href="/documents" className={`min-h-11 inline-flex items-center text-sm underline underline-offset-2 ${ui.focus}`}>
                 {t("documents")}
               </Link>
-              <Link href="/journeys" className="min-h-11 inline-flex items-center text-sm underline underline-offset-2">
+              <Link href="/journeys" className={`min-h-11 inline-flex items-center text-sm underline underline-offset-2 ${ui.focus}`}>
                 {t("journeys")}
               </Link>
             </nav>
