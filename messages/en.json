@@ -32,6 +32,7 @@
     "errorBody": "We couldn't load this. Your data is still safe on this device."
   },
   "home": {
+    "startLink": "Start a new journey",
     "title": "Paper Trail",
     "intro": "Pick a life event and see every step, document and deadline that applies to you.",
     "i18nDemoLink": "Open the i18n demo page",
@@ -39,6 +40,16 @@
     "journeysHeading": "Your journeys",
     "stepsCount": "{count, plural, one {# step} other {# steps}}",
     "loadingJourneys": "Loading journeys…"
+  },
+  "pickEvent": {
+    "title": "What is changing in your life?",
+    "intro": "Pick one and we will build your list of steps, documents and deadlines.",
+    "stepsCount": "{count, plural, one {# step} other {# steps}}",
+    "start": "Start",
+    "empty": {
+      "title": "No life events available",
+      "body": "The catalogue is empty. Run the seed to load it."
+    }
   },
   "i18nDemo": {
     "title": "Internationalisation check",

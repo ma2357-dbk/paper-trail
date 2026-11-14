@@ -32,6 +32,7 @@
     "errorBody": "Nismo uspjeli učitati ovo. Vaši su podaci i dalje sigurni na uređaju."
   },
   "home": {
+    "startLink": "Započni novo putovanje",
     "title": "Paper Trail",
     "intro": "Odaberite životni događaj i pogledajte svaki korak, dokument i rok koji se odnosi na vas.",
     "i18nDemoLink": "Otvori demo stranicu za i18n",
@@ -39,6 +40,16 @@
     "journeysHeading": "Vaša putovanja",
     "stepsCount": "{count, plural, one {# korak} few {# koraka} other {# koraka}}",
     "loadingJourneys": "Učitavanje putova…"
+  },
+  "pickEvent": {
+    "title": "Što se mijenja u vašem životu?",
+    "intro": "Odaberite jedno, a mi ćemo složiti popis koraka, dokumenata i rokova.",
+    "stepsCount": "{count, plural, one {# korak} few {# koraka} other {# koraka}}",
+    "start": "Započni",
+    "empty": {
+      "title": "Nema dostupnih životnih događaja",
+      "body": "Katalog je prazan. Pokrenite seed da ga učitate."
+    }
   },
   "i18nDemo": {
     "title": "Provjera internacionalizacije",
