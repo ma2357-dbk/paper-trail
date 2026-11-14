@@ -81,7 +81,7 @@ Translations live in `messages/<locale>.json`. To add a locale: copy `messages/e
 
 ## Known limitations
 
-- Croatian strings were drafted by a non-native speaker and are being reviewed by Maroje.
+- Journeys started from screen 03 are always Croatian (`countryCode: "HR"`) until the country picker (#17) exists.
 - Unknown document or journey ids render the not-found screen but, because the page streams, with HTTP status 200.
 - Offline mode is read-only: pages already loaded stay readable and forms are disabled; there is no service worker, so a cold load without a connection fails.
 - Server Actions resolve the locale with `getLocale()`; next-intl notes root params are not yet supported there, so a future upgrade may need an explicit locale.
