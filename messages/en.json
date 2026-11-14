@@ -259,6 +259,7 @@
       "attachLabel": "Pick from your wallet",
       "attach": "Attach",
       "detach": "Remove",
+      "detachNamed": "Remove {name}",
       "addToWallet": "Add it to your wallet"
     },
     "waiting": {

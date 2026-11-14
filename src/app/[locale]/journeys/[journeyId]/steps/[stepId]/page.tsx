@@ -1,8 +1,10 @@
+import type { Metadata } from "next";
 import { Suspense } from "react";
 import { notFound } from "next/navigation";
 import { connection } from "next/server";
 import { getFormatter, getTranslations } from "next-intl/server";
 import { CorrectionForm } from "@/components/CorrectionForm";
+import { FocusOnHash } from "@/components/FocusOnHash";
 import { StatusBadge } from "@/components/StatusBadge";
 import { SubmitButton } from "@/components/SubmitButton";
 import { LoadingSkeleton } from "@/components/LoadingSkeleton";
@@ -10,10 +12,18 @@ import { Link } from "@/i18n/navigation";
 import { documentTypeLabel, stepOffice, stepSummary, stepTitle } from "@/lib/catalog";
 import { prisma } from "@/lib/db";
 import { now } from "@/lib/time";
-import { estimateReplyWindow } from "@/lib/nagerDate";
+import { estimateReplyWindow, holidayLanguage } from "@/lib/nagerDate";
 import { isStepStatus } from "@/lib/stepStatus";
 import { ui } from "@/lib/ui";
 import { addCorrection, attachDocument, detachDocument, setStepStatus, voteCorrection } from "../actions";
+
+/** Screen reader users hear the page title first: name the step, not just the app. */
+export async function generateMetadata({ params }: PageProps<"/[locale]/journeys/[journeyId]/steps/[stepId]">): Promise<Metadata> {
+  const { stepId } = await params;
+  const tCatalog = await getTranslations("catalog");
+  const step = await prisma.step.findUnique({ where: { id: stepId }, select: { stepTemplateId: true } });
+  return { title: step ? stepTitle(tCatalog, step.stepTemplateId) : undefined };
+}
 
 /** Screens 15–19: requirements, status, waiting for a reply, rejected, corrections. */
 export default function StepPage(props: PageProps<"/[locale]/journeys/[journeyId]/steps/[stepId]">) {
@@ -80,6 +90,8 @@ async function StepContent({ params }: PageProps<"/[locale]/journeys/[journeyId]
 
   return (
     <article className="flex flex-col gap-6">
+      {/* Re-mounted on every request so focus follows the #section hash set by the actions. */}
+      <FocusOnHash key={nowMs} />
       <Link href={`/journeys/${journeyId}/steps`} className={ui.link}>
         ← {t("backToSteps")}
       </Link>
@@ -148,7 +160,9 @@ async function StepContent({ params }: PageProps<"/[locale]/journeys/[journeyId]
                       <Link href={`/documents/${a.documentId}`} className={ui.link}>
                         {a.document.name}
                       </Link>
-                      <SubmitButton variant="secondary">{t("requirements.detach")}</SubmitButton>
+                      <SubmitButton variant="secondary" aria-label={t("requirements.detachNamed", { name: a.document.name })}>
+                        {t("requirements.detach")}
+                      </SubmitButton>
                     </form>
                   ))}
                   {candidates.length > 0 && (
@@ -199,7 +213,14 @@ async function StepContent({ params }: PageProps<"/[locale]/journeys/[journeyId]
               {estimate.holidaysInWindow.length > 0 && (
                 <p className="text-sm text-neutral-700">
                   {t("waiting.holidays", { count: estimate.holidaysInWindow.length })}{" "}
-                  {format.list(estimate.holidaysInWindow.map((h) => `${h.localName} (${date(new Date(`${h.date}T00:00:00Z`))})`))}
+                  {format.list(
+                    estimate.holidaysInWindow.map((h) => (
+                      // The API returns the name in the country's language; tell the screen reader which.
+                      <span key={h.date}>
+                        <span lang={holidayLanguage(step.journey.countryCode)}>{h.localName}</span> ({date(new Date(`${h.date}T00:00:00Z`))})
+                      </span>
+                    )),
+                  )}
                 </p>
               )}
               {estimate.fallback && (

@@ -44,7 +44,7 @@ Two layers: the **catalogue** (`LifeEvent`, `StepTemplate`, `DocumentType`, `Ste
 
 ## External API
 
-[Nager.Date](https://date.nager.at) public-holiday API, no key required, called from the server only (`src/lib/nagerDate.ts`). It turns a step's typical waiting time ("5–10 working days") into real dates on the *Waiting for a reply* screen and sets the reminder date when a step is submitted. Responses are cached for a day per country and year. Every failure (offline, timeout, HTTP 429, unknown country, 5xx, malformed body) is mapped to a reason; the screen then falls back to weekends-only arithmetic and says so. The pure date logic is in `src/lib/workingDays.ts` with tests.
+[Nager.Date](https://date.nager.at) public-holiday API, no key required, called from the server only (`src/lib/nagerDate.ts`). It turns a step's typical waiting time ("5–10 working days") into real dates on the *Waiting for a reply* screen and sets the reminder date when a step is submitted. Responses are cached for a day per country and year. Set `NAGER_DATE_BASE_URL` in `.env` to a dead address (see `.env.example`) to see the fallback without cutting the network. Every failure (offline, timeout, HTTP 429, unknown country, 5xx, malformed body) is mapped to a reason; the screen then falls back to weekends-only arithmetic and says so. The pure date logic is in `src/lib/workingDays.ts` with tests.
 
 [REST Countries](https://restcountries.com) is planned for the *find office* screen.
 
@@ -79,9 +79,14 @@ Translations live in `messages/<locale>.json`. To add a locale: copy `messages/e
 ## Known limitations
 
 - Croatian strings were drafted by a non-native speaker and are being reviewed by Maroje.
-- Unknown document or journey ids render the not-found screen but, because the page streams, with HTTP status 200.
-- Offline mode is read-only: pages already loaded stay readable and forms are disabled; there is no service worker, so a cold load without a connection fails.
+- Accessibility (see `docs/part-b/07-accessibility.md` for the full ten-minute check): the screen-reader walkthrough is still to be done (#8); disabled buttons keep a 2.6:1 label contrast (#6); the native date input's calendar icon has no visible focus ring in Chrome.
+- Unknown document or journey ids render the not-found screen but, because the page streams, with HTTP status 200 (#5).
+- Offline mode is read-only: pages already loaded stay readable and forms are disabled; there is no service worker, so a cold load without a connection fails (#7).
 - Server Actions resolve the locale with `getLocale()`; next-intl notes root params are not yet supported there, so a future upgrade may need an explicit locale.
+
+## Submission document
+
+Drafts of the Part B sections Hlib owns (architecture, database and ERD, external API, i18n 6.2–6.4 and 6.7, accessibility report for screens 11–20) are in [`docs/part-b/`](docs/part-b/README.md) with the figures and the Mermaid sources of the diagrams.
 
 ## Third-party code and attribution
 

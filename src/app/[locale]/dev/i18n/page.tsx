@@ -9,6 +9,7 @@ import { getFormatter, getLocale, getTranslations } from "next-intl/server";
 export default async function I18nDemoPage() {
   const locale = await getLocale();
   const t = await getTranslations("i18nDemo");
+  const tTypes = await getTranslations("catalog.documentTypes");
   const format = await getFormatter();
 
   const now = new Date("2026-11-11T14:05:00Z");
@@ -25,7 +26,7 @@ export default async function I18nDemoPage() {
     [t("decimalNumber"), format.number(1234.56)],
     [t("percentage"), format.number(0.256, { style: "percent" })],
     [t("currency"), format.number(49.9, { style: "currency", currency: "EUR" })],
-    [t("list"), format.list(["ID card", "Lease contract", "Proof of address"])],
+    [t("list"), format.list(["id-card", "lease-contract", "proof-of-address"].map((id) => tTypes(id as never)))],
     [t("sortedNames"), sorted.join(", ")],
   ];
 

@@ -7,8 +7,13 @@ import { prisma } from "@/lib/db";
 import { estimateReplyWindow } from "@/lib/nagerDate";
 import { isStepStatus } from "@/lib/stepStatus";
 
-function stepHref(journeyId: string, stepId: string) {
-  return `/journeys/${journeyId}/steps/${stepId}`;
+/**
+ * Every action redirects back to the step with a `#section` hash so that
+ * `FocusOnHash` moves focus to the part of the screen that changed; a screen
+ * reader then announces the result instead of restarting at the top.
+ */
+function stepHref(journeyId: string, stepId: string, section: string) {
+  return `/journeys/${journeyId}/steps/${stepId}#${section}`;
 }
 
 /** Screens 16–18: move a step between statuses. */
@@ -65,9 +70,9 @@ export async function setStepStatus(formData: FormData) {
   revalidatePath("/", "layout");
   const locale = await getActionLocale();
   if (remaining === 0) {
-    redirect({ href: `/journeys/${step.journeyId}/complete`, locale });
+    redirect({ href: `/journeys/${step.journeyId}/complete#complete-title`, locale });
   }
-  redirect({ href: stepHref(step.journeyId, stepId), locale });
+  redirect({ href: stepHref(step.journeyId, stepId, status === "SUBMITTED" ? "wait-heading" : status === "REJECTED" ? "rej-heading" : "status-heading"), locale });
 }
 
 /** Screen 15: attach a wallet document to a step. */
@@ -86,7 +91,7 @@ export async function attachDocument(formData: FormData) {
     create: { stepId, documentId },
   });
   revalidatePath("/", "layout");
-  redirect({ href: stepHref(step.journeyId, stepId), locale: await getActionLocale() });
+  redirect({ href: stepHref(step.journeyId, stepId, "req-heading"), locale: await getActionLocale() });
 }
 
 export async function detachDocument(formData: FormData) {
@@ -97,7 +102,7 @@ export async function detachDocument(formData: FormData) {
   if (!step) return;
   await prisma.stepDocument.deleteMany({ where: { stepId, documentId } });
   revalidatePath("/", "layout");
-  redirect({ href: stepHref(step.journeyId, stepId), locale: await getActionLocale() });
+  redirect({ href: stepHref(step.journeyId, stepId, "req-heading"), locale: await getActionLocale() });
 }
 
 export type CorrectionFormState = { error?: "textRequired" | "textTooLong"; savedAt?: number };

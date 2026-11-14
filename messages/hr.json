@@ -259,6 +259,7 @@
       "attachLabel": "Odaberite iz novčanika",
       "attach": "Priloži",
       "detach": "Ukloni",
+      "detachNamed": "Ukloni {name}",
       "addToWallet": "Dodajte ga u novčanik"
     },
     "waiting": {
