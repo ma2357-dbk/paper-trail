@@ -1,0 +1,50 @@
+{
+  "app": {
+    "name": "Paper Trail",
+    "tagline": "Vodič kroz birokraciju za životne događaje"
+  },
+  "locale": {
+    "label": "Jezik",
+    "en": "English",
+    "hr": "Hrvatski",
+    "ru": "Русский"
+  },
+  "nav": {
+    "home": "Početna",
+    "journeys": "Putovanja",
+    "documents": "Dokumenti"
+  },
+  "common": {
+    "loading": "Učitavanje…",
+    "retry": "Pokušaj ponovno",
+    "back": "Natrag",
+    "save": "Spremi",
+    "cancel": "Odustani",
+    "delete": "Izbriši",
+    "confirm": "Potvrdi",
+    "offline": "Niste povezani",
+    "errorTitle": "Nešto je pošlo po zlu",
+    "emptyTitle": "Još ništa nema"
+  },
+  "home": {
+    "title": "Paper Trail",
+    "intro": "Odaberite životni događaj i pogledajte svaki korak, dokument i rok koji se odnosi na vas.",
+    "i18nDemoLink": "Otvori demo stranicu za i18n"
+  },
+  "i18nDemo": {
+    "title": "Provjera internacionalizacije",
+    "pluralsHeading": "Pravila množine",
+    "documentsCount": "{count, plural, =0 {Nema dokumenata} one {# dokument} few {# dokumenta} other {# dokumenata}}",
+    "formattingHeading": "Oblikovanje prema lokalizaciji",
+    "shortDate": "Kratki datum",
+    "longDate": "Dugi datum s danom u tjednu",
+    "time": "Vrijeme",
+    "relativeTime": "Relativno vrijeme",
+    "largeNumber": "Veliki broj",
+    "decimalNumber": "Decimalni broj",
+    "percentage": "Postotak",
+    "currency": "Valuta",
+    "list": "Popis od tri stavke",
+    "sortedNames": "Sortirana imena s Č, Ć, Š"
+  }
+}
