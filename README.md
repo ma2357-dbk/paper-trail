@@ -52,6 +52,9 @@ Two layers: the **catalogue** (`LifeEvent`, `StepTemplate`, `DocumentType`, `Ste
 
 | Route | Screens |
 |---|---|
+| `/[locale]` | 01: home with the current journeys and the entry points |
+| `/[locale]/events` | 03: pick a life event and start a journey |
+| `/[locale]/journeys`, `/journeys/[id]/edit` | 09, 10: all journeys with progress, rename, delete with confirmation |
 | `/[locale]/documents`, `/documents/new`, `/documents/[id]` | 11–14: documents wallet, add/scan, reading state, edit and delete with confirmation |
 | `/[locale]/journeys/[id]/steps` | 16: status of every step |
 | `/[locale]/journeys/[id]/steps/[stepId]` | 15, 17, 18, 19: requirements, waiting for a reply, rejected, recent corrections |
