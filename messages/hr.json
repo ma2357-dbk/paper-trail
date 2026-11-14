@@ -51,6 +51,22 @@
       "body": "Katalog je prazan. Pokrenite seed da ga učitate."
     }
   },
+  "journeys": {
+    "title": "Vaša putovanja",
+    "count": "{count, plural, =0 {Još nema putovanja} one {# putovanje} few {# putovanja} other {# putovanja}}",
+    "add": "Novo putovanje",
+    "progress": "Gotovo {done} od {total} koraka",
+    "delete": "Obriši",
+    "confirmDelete": {
+      "title": "Obrisati „{name}”?",
+      "body": "Svi koraci bit će uklonjeni. Ovo se ne može poništiti."
+    },
+    "empty": {
+      "title": "Još nema putovanja",
+      "body": "Odaberite životni događaj, a mi ćemo složiti popis koraka.",
+      "cta": "Započni putovanje"
+    }
+  },
   "i18nDemo": {
     "title": "Provjera internacionalizacije",
     "pluralsHeading": "Pravila množine",
