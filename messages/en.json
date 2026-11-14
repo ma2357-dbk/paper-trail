@@ -12,7 +12,9 @@
   "nav": {
     "home": "Home",
     "journeys": "Journeys",
-    "documents": "Documents"
+    "documents": "Documents",
+    "skipToContent": "Skip to content",
+    "mainNav": "Main navigation"
   },
   "common": {
     "loading": "Loading…",
@@ -24,12 +26,19 @@
     "confirm": "Confirm",
     "offline": "You're offline",
     "errorTitle": "Something went wrong",
-    "emptyTitle": "Nothing here yet"
+    "emptyTitle": "Nothing here yet",
+    "saving": "Saving…",
+    "offlineHint": "You're offline. Reconnect to save.",
+    "errorBody": "We couldn't load this. Your data is still safe on this device."
   },
   "home": {
     "title": "Paper Trail",
     "intro": "Pick a life event and see every step, document and deadline that applies to you.",
-    "i18nDemoLink": "Open the i18n demo page"
+    "i18nDemoLink": "Open the i18n demo page",
+    "documentsLink": "My documents",
+    "journeysHeading": "Your journeys",
+    "stepsCount": "{count, plural, one {# step} other {# steps}}",
+    "loadingJourneys": "Loading journeys…"
   },
   "i18nDemo": {
     "title": "Internationalisation check",
@@ -59,50 +68,54 @@
       }
     },
     "steps": {
-      "move-abroad.get-oib": {
-        "title": "Get a personal identification number (OIB)",
-        "office": "Tax Administration (Porezna uprava)",
-        "summary": "Needed for every other step: contracts, bank, insurance."
+      "move-abroad": {
+        "get-oib": {
+          "title": "Get a personal identification number (OIB)",
+          "office": "Tax Administration (Porezna uprava)",
+          "summary": "Needed for every other step: contracts, bank, insurance."
+        },
+        "register-address": {
+          "title": "Register your new address",
+          "office": "Police administration (MUP), foreigners desk",
+          "summary": "Within 30 days of moving in. Bring the lease and the landlord's proof of ownership."
+        },
+        "residence-permit": {
+          "title": "Apply for a residence permit",
+          "office": "Police administration (MUP)",
+          "summary": "Temporary stay for work or study. Fee is paid at the counter."
+        },
+        "health-insurance": {
+          "title": "Register for health insurance",
+          "office": "Croatian Health Insurance Fund (HZZO)",
+          "summary": "Your employer registers you, but you confirm it and collect the card."
+        },
+        "open-bank-account": {
+          "title": "Open a bank account",
+          "office": "Any bank branch",
+          "summary": "Needed for salary and rent. Banks ask for OIB and proof of address."
+        }
       },
-      "move-abroad.register-address": {
-        "title": "Register your new address",
-        "office": "Police administration (MUP), foreigners desk",
-        "summary": "Within 30 days of moving in. Bring the lease and the landlord's proof of ownership."
-      },
-      "move-abroad.residence-permit": {
-        "title": "Apply for a residence permit",
-        "office": "Police administration (MUP)",
-        "summary": "Temporary stay for work or study. Fee is paid at the counter."
-      },
-      "move-abroad.health-insurance": {
-        "title": "Register for health insurance",
-        "office": "Croatian Health Insurance Fund (HZZO)",
-        "summary": "Your employer registers you, but you confirm it and collect the card."
-      },
-      "move-abroad.open-bank-account": {
-        "title": "Open a bank account",
-        "office": "Any bank branch",
-        "summary": "Needed for salary and rent. Banks ask for OIB and proof of address."
-      },
-      "start-university.enrol": {
-        "title": "Enrol at the university",
-        "office": "Student office (referada)",
-        "summary": "Bring originals; the office keeps copies."
-      },
-      "start-university.student-id": {
-        "title": "Get your student card (X-ica)",
-        "office": "Student centre",
-        "summary": "Used for meals and transport discounts."
-      },
-      "start-university.temporary-residence": {
-        "title": "Register temporary residence",
-        "office": "Police administration (MUP)",
-        "summary": "Within 30 days of moving to the student dorm or flat."
-      },
-      "start-university.student-health-insurance": {
-        "title": "Register student health insurance",
-        "office": "Croatian Health Insurance Fund (HZZO)",
-        "summary": "Free for full-time students under 26."
+      "start-university": {
+        "enrol": {
+          "title": "Enrol at the university",
+          "office": "Student office (referada)",
+          "summary": "Bring originals; the office keeps copies."
+        },
+        "student-id": {
+          "title": "Get your student card (X-ica)",
+          "office": "Student centre",
+          "summary": "Used for meals and transport discounts."
+        },
+        "temporary-residence": {
+          "title": "Register temporary residence",
+          "office": "Police administration (MUP)",
+          "summary": "Within 30 days of moving to the student dorm or flat."
+        },
+        "student-health-insurance": {
+          "title": "Register student health insurance",
+          "office": "Croatian Health Insurance Fund (HZZO)",
+          "summary": "Free for full-time students under 26."
+        }
       }
     },
     "documentTypes": {
@@ -124,5 +137,159 @@
       "REJECTED": "Rejected, retry",
       "DONE": "Done"
     }
+  },
+  "offline": {
+    "title": "You're offline.",
+    "body": "You can read your documents and steps. Changes are blocked until you're back online."
+  },
+  "documents": {
+    "title": "Documents",
+    "count": "{count, plural, =0 {Your wallet is empty} one {# document in your wallet} other {# documents in your wallet}}",
+    "add": "Add",
+    "newTitle": "Add a document",
+    "backToWallet": "Back to documents",
+    "noType": "No type",
+    "hasFile": "Scan attached",
+    "noFile": "No scan",
+    "attachedTo": "{count, plural, one {used in # step} other {used in # steps}}",
+    "validUntil": "Valid until {date}",
+    "expired": "Expired on {date}",
+    "updatedAt": "Last changed {date}",
+    "scanAlt": "Scan of {name}",
+    "openFile": "Open {name}",
+    "attachedHeading": "{count, plural, one {Used in # step} other {Used in # steps}}",
+    "editHeading": "Edit",
+    "dangerHeading": "Delete this document",
+    "dangerBody": "{count, plural, =0 {It is not attached to any step.} one {It will be removed from # step.} other {It will be removed from # steps.}}",
+    "delete": "Delete document",
+    "confirmDelete": {
+      "title": "Delete “{name}”?",
+      "body": "{count, plural, =0 {This cannot be undone.} one {It will also be detached from # step. This cannot be undone.} other {It will also be detached from # steps. This cannot be undone.}}"
+    },
+    "empty": {
+      "title": "No documents yet",
+      "body": "Add your ID, lease or certificates once and attach them to any step that needs them.",
+      "cta": "Add your first document"
+    },
+    "notFound": {
+      "title": "Document not found",
+      "body": "It may have been deleted."
+    },
+    "form": {
+      "name": "Name",
+      "nameHint": "How you call it, e.g. “Passport” or “Lease for Ilica 5”.",
+      "type": "Type",
+      "typeNone": "Not set",
+      "validUntil": "Valid until",
+      "file": "Scan or photo",
+      "replaceFile": "Replace the scan",
+      "currentFile": "Current file: {name} ({size})",
+      "removeFile": "Remove the current file",
+      "fileHint": "JPEG, PNG, WebP or PDF up to 2 MB. On a phone this opens the camera.",
+      "readingScan": "Reading your scan…",
+      "create": "Save document",
+      "save": "Save changes",
+      "errors": {
+        "nameRequired": "Give the document a name.",
+        "nameTooLong": "The name is too long (120 characters max).",
+        "invalidDate": "The date is not valid.",
+        "fileTooLarge": "The file is larger than 2 MB. Take a smaller photo or compress the PDF.",
+        "fileType": "Only JPEG, PNG, WebP and PDF files are accepted.",
+        "notFound": "This document no longer exists."
+      }
+    }
+  },
+  "steps": {
+    "progress": "{done} of {total} steps done",
+    "allDoneCta": "See your completed path",
+    "replyBy": "Reply expected by {date}",
+    "deadline": "Deadline {date}",
+    "backToSteps": "All steps",
+    "office": "Where",
+    "deadlineLabel": "Deadline",
+    "fee": "Fee",
+    "typicalWait": "Typical wait",
+    "workingDaysRange": "{min}–{max} working days",
+    "blockedBy": "Finish this step first:",
+    "requirements": {
+      "heading": "What to bring",
+      "ready": "({ready} of {total} ready)",
+      "none": "No documents are needed for this step.",
+      "readyLabel": "Ready",
+      "missingLabel": "Missing",
+      "attachLabel": "Pick from your wallet",
+      "attach": "Attach",
+      "detach": "Remove",
+      "addToWallet": "Add it to your wallet"
+    },
+    "waiting": {
+      "heading": "Waiting for a reply",
+      "submittedOn": "Submitted on {date}.",
+      "window": "Expect an answer between {from} and {to}.",
+      "elapsed": "{days, plural, one {# working day} other {# working days}} of {max} passed",
+      "holidays": "{count, plural, one {# public holiday in this window:} other {# public holidays in this window:}}",
+      "overdue": "The typical time has passed. It is reasonable to call the office.",
+      "noEstimate": "We don't have a typical waiting time for this step.",
+      "fallback": {
+        "offline": "Public holidays couldn't be loaded (no connection), so the dates count weekends only.",
+        "timeout": "The holiday service took too long to answer, so the dates count weekends only.",
+        "rate-limited": "The holiday service is busy right now, so the dates count weekends only.",
+        "unsupported-country": "No holiday calendar for this country, so the dates count weekends only.",
+        "server-error": "The holiday service is down, so the dates count weekends only.",
+        "malformed": "The holiday service sent an unexpected answer, so the dates count weekends only."
+      }
+    },
+    "rejected": {
+      "heading": "Rejected",
+      "reason": "Reason given: {note}",
+      "noReason": "No reason was recorded.",
+      "tip1": "Check the list above: every missing or expired document is marked.",
+      "tip2": "Ask the office exactly what to fix and write it down here.",
+      "tip3": "Resubmit when everything is ready; the waiting time starts again."
+    },
+    "actions": {
+      "heading": "Update status",
+      "start": "Start this step",
+      "submitted": "I submitted it",
+      "resubmit": "I resubmitted it",
+      "done": "Mark as done",
+      "approved": "Approved, mark as done",
+      "reopen": "Reopen",
+      "reset": "Reset to not started",
+      "rejected": "It was rejected",
+      "rejectedLabel": "What did the office say?",
+      "rejectedPlaceholder": "e.g. the lease is missing a stamp"
+    },
+    "corrections": {
+      "heading": "Recent corrections",
+      "intro": "Changes other people noticed: moved offices, new fees, new forms.",
+      "empty": "Nothing reported yet.",
+      "votes": "{confirmations, plural, one {# confirmation} other {# confirmations}}, {disputes, plural, one {# dispute} other {# disputes}}",
+      "confirm": "Still true",
+      "dispute": "Not true",
+      "addLabel": "Report a change",
+      "addHint": "Up to 300 characters. Say what changed and when.",
+      "addButton": "Send",
+      "saved": "Thanks, your correction is listed above.",
+      "errors": {
+        "textRequired": "Write what changed.",
+        "textTooLong": "Keep it under 300 characters."
+      }
+    }
+  },
+  "complete": {
+    "title": "Path complete",
+    "body": "Every step of “{title}” is done.",
+    "notYetTitle": "Not finished yet",
+    "notYetBody": "{remaining, plural, one {# step is still open.} other {# steps are still open.}}",
+    "stepsDone": "Steps",
+    "stepsCount": "{count, plural, one {# step done} other {# steps done}}",
+    "documentsUsed": "Documents",
+    "documentsCount": "{count, plural, =0 {none attached} one {# document used} other {# documents used}}",
+    "duration": "Took",
+    "daysCount": "{count, plural, =0 {less than a day} one {# day} other {# days}}",
+    "completedOn": "Finished on",
+    "keepDocuments": "Keep your documents",
+    "backToSteps": "Back to the steps"
   }
 }

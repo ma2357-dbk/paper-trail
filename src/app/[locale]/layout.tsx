@@ -1,10 +1,12 @@
 import type { Metadata } from "next";
+import { Suspense } from "react";
 import { Inter } from "next/font/google";
 import { NextIntlClientProvider } from "next-intl";
-import { getTranslations, setRequestLocale } from "next-intl/server";
-import { resolveLocale } from "@/i18n/locale";
+import { getLocale, getTranslations } from "next-intl/server";
+import { Link } from "@/i18n/navigation";
 import { getDirection, routing } from "@/i18n/routing";
 import { LocaleSwitcher } from "@/components/LocaleSwitcher";
+import { OfflineBanner } from "@/components/OfflineBanner";
 import "../globals.css";
 
 // Inter ships Latin Extended (č ć đ š ž) and Cyrillic glyphs in every weight.
@@ -17,20 +19,14 @@ export function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }));
 }
 
-export async function generateMetadata({
-  params,
-}: Omit<LayoutProps<"/[locale]">, "children">): Promise<Metadata> {
-  const locale = await resolveLocale(params);
-  const t = await getTranslations({ locale, namespace: "app" });
-  return { title: t("name"), description: t("tagline") };
+export async function generateMetadata(): Promise<Metadata> {
+  const t = await getTranslations("app");
+  return { title: { default: t("name"), template: `%s · ${t("name")}` }, description: t("tagline") };
 }
 
-export default async function LocaleLayout({
-  children,
-  params,
-}: LayoutProps<"/[locale]">) {
-  const locale = await resolveLocale(params);
-  setRequestLocale(locale);
+export default async function LocaleLayout({ children }: LayoutProps<"/[locale]">) {
+  const locale = await getLocale();
+  const t = await getTranslations("nav");
 
   return (
     <html
@@ -40,11 +36,28 @@ export default async function LocaleLayout({
     >
       <body className="flex min-h-full flex-col">
         <NextIntlClientProvider>
-          <header className="flex items-center justify-between gap-4 border-b border-neutral-200 px-4 py-3">
-            <span className="font-semibold">Paper Trail</span>
-            <LocaleSwitcher />
+          <a
+            href="#main"
+            className="sr-only focus:not-sr-only focus:absolute focus:left-2 focus:top-2 focus:z-10 focus:rounded focus:bg-white focus:px-3 focus:py-2 focus:outline-2 focus:outline-blue-700"
+          >
+            {t("skipToContent")}
+          </a>
+          <header className="flex items-center justify-between gap-4 border-b border-neutral-200 px-4 py-2">
+            <nav aria-label={t("mainNav")} className="flex items-center gap-4">
+              <Link href="/" className="min-h-11 inline-flex items-center font-semibold">
+                Paper Trail
+              </Link>
+              <Link href="/documents" className="min-h-11 inline-flex items-center text-sm underline underline-offset-2">
+                {t("documents")}
+              </Link>
+            </nav>
+            {/* usePathname() is runtime data; the boundary keeps the layout shell static. */}
+            <Suspense fallback={null}>
+              <LocaleSwitcher />
+            </Suspense>
           </header>
-          <main className="flex-1 px-4 py-6 max-w-screen-sm w-full mx-auto">
+          <OfflineBanner />
+          <main id="main" tabIndex={-1} className="flex-1 px-4 py-6 max-w-screen-sm w-full mx-auto">
             {children}
           </main>
         </NextIntlClientProvider>
