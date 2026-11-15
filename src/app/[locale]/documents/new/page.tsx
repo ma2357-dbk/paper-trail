@@ -16,17 +16,17 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 /** Screen 12: add a document, optionally scanning it with the phone camera. */
-export default function NewDocumentPage(props: PageProps<"/[locale]/documents/new">) {
+export default function NewDocumentPage() {
   // Params of dynamic segments are request data: nothing is awaited here so the
   // skeleton below can be prerendered as the static shell.
   return (
     <Suspense fallback={<LoadingSkeleton rows={4} />}>
-      <NewDocumentContent {...props} />
+      <NewDocumentContent />
     </Suspense>
   );
 }
 
-async function NewDocumentContent({ params }: PageProps<"/[locale]/documents/new">) {
+async function NewDocumentContent() {
   const locale = await getLocale();
   // Read from the database at request time, never at build time (cacheComponents).
   await connection();

@@ -18,17 +18,17 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 /** Screen 11: the documents wallet. */
-export default function DocumentsPage(props: PageProps<"/[locale]/documents">) {
+export default function DocumentsPage() {
   // Params of dynamic segments are request data: nothing is awaited here so the
   // skeleton below can be prerendered as the static shell.
   return (
     <Suspense fallback={<LoadingSkeleton rows={3} />}>
-      <DocumentsContent {...props} />
+      <DocumentsContent />
     </Suspense>
   );
 }
 
-async function DocumentsContent({ params }: PageProps<"/[locale]/documents">) {
+async function DocumentsContent() {
   // Read from the database at request time, never at build time (cacheComponents).
   await connection();
   const t = await getTranslations("documents");
