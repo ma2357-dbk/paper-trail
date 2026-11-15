@@ -1,6 +1,6 @@
 import { Suspense } from "react";
 import { connection } from "next/server";
-import { getTranslations } from "next-intl/server";
+import { getLocale, getTranslations } from "next-intl/server";
 import { ConfirmDelete } from "@/components/ConfirmDelete";
 import { LoadingSkeleton } from "@/components/LoadingSkeleton";
 import { Link } from "@/i18n/navigation";
@@ -21,13 +21,28 @@ export default function JourneysPage() {
 async function JourneysContent() {
   // Read from the database at request time, never at build time.
   await connection();
+  const locale = await getLocale();
   const t = await getTranslations("journeys");
   const tCatalog = await getTranslations("catalog");
+  const regionNames = new Intl.DisplayNames([locale], { type: "region" });
+  const countryName = (code: string) => {
+    try {
+      return regionNames.of(code) ?? code;
+    } catch {
+      return code;
+    }
+  };
 
   const journeys = await prisma.journey.findMany({
     where: { archivedAt: null },
     orderBy: { createdAt: "desc" },
-    select: { id: true, title: true, lifeEventId: true, steps: { select: { status: true } } },
+    select: {
+      id: true,
+      title: true,
+      countryCode: true,
+      lifeEventId: true,
+      steps: { select: { status: true } },
+    },
   });
 
   return (
@@ -62,6 +77,9 @@ async function JourneysContent() {
                   <span className="text-sm text-neutral-700">
                     {t("progress", { done, total: journey.steps.length })}
                   </span>
+                  {journey.countryCode && (
+                    <span className="text-sm text-neutral-700">{countryName(journey.countryCode)}</span>
+                  )}
                 </Link>
                 <div className="flex flex-wrap gap-2">
                   <Link href={`/journeys/${journey.id}/edit`} className={ui.buttonSecondary}>
