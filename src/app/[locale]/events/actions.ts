@@ -22,6 +22,9 @@ export async function startJourney(formData: FormData) {
   const journey = await prisma.journey.create({
     data: {
       lifeEventId: event.id,
+      // Until the country picker (#17) exists every journey is Croatian, so the
+      // public-holiday calendar on screen 17 works for journeys started here too.
+      countryCode: "HR",
       steps: { create: event.steps.map((step) => ({ stepTemplateId: step.id })) },
     },
   });
