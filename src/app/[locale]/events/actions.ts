@@ -3,11 +3,13 @@
 import { revalidatePath } from "next/cache";
 import { getActionLocale } from "@/i18n/actionLocale";
 import { redirect } from "@/i18n/navigation";
+import { parseCountryCode } from "@/lib/countryCode";
 import { prisma } from "@/lib/db";
 
-/** Creates a journey for the chosen life event, with one step per step template (F1, F3 create). */
+/** Creates a journey for the chosen life event and country, with one step per step template (F1, F3 create). */
 export async function startJourney(formData: FormData) {
   const lifeEventId = String(formData.get("lifeEventId") ?? "");
+  const countryCode = parseCountryCode(formData.get("countryCode"));
   const locale = await getActionLocale();
 
   const event = await prisma.lifeEvent.findUnique({
@@ -22,6 +24,7 @@ export async function startJourney(formData: FormData) {
   const journey = await prisma.journey.create({
     data: {
       lifeEventId: event.id,
+      countryCode,
       steps: { create: event.steps.map((step) => ({ stepTemplateId: step.id })) },
     },
   });

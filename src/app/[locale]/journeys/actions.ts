@@ -3,27 +3,36 @@
 import { revalidatePath } from "next/cache";
 import { getActionLocale } from "@/i18n/actionLocale";
 import { redirect } from "@/i18n/navigation";
+import { parseCountryCode } from "@/lib/countryCode";
 import { prisma } from "@/lib/db";
 
 export type JourneyFormState = {
   error?: "nameTooLong" | "notFound";
-  /** Echoed back so the typed name survives a validation error. */
-  values?: { title: string };
+  /** Echoed back so what the user typed survives a validation error. */
+  values?: { title: string; countryCode: string };
 };
 
-/** F3 update: give a journey your own name. Empty means "use the life event's name". */
+/** F3 update: give a journey your own name and country. Empty name means "use the life event's name". */
 export async function renameJourney(
   id: string,
   _prev: JourneyFormState,
   formData: FormData,
 ): Promise<JourneyFormState> {
   const title = String(formData.get("title") ?? "").trim();
-  if (title.length > 80) return { error: "nameTooLong", values: { title } };
+  // The country field is missing when the country list could not be loaded: keep the saved country then.
+  const hasCountry = formData.has("countryCode");
+  const countryCode = parseCountryCode(formData.get("countryCode"));
+  const values = { title, countryCode: countryCode ?? "" };
+
+  if (title.length > 80) return { error: "nameTooLong", values };
 
   const existing = await prisma.journey.findUnique({ where: { id }, select: { id: true } });
-  if (!existing) return { error: "notFound", values: { title } };
+  if (!existing) return { error: "notFound", values };
 
-  await prisma.journey.update({ where: { id }, data: { title: title || null } });
+  await prisma.journey.update({
+    where: { id },
+    data: { title: title || null, ...(hasCountry ? { countryCode } : {}) },
+  });
 
   revalidatePath("/", "layout");
   redirect({ href: "/journeys", locale: await getActionLocale() });

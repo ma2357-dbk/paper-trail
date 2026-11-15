@@ -46,6 +46,12 @@
     "intro": "Pick one and we will build your list of steps, documents and deadlines.",
     "stepsCount": "{count, plural, one {# step} other {# steps}}",
     "start": "Start",
+    "country": {
+      "label": "Country of the offices",
+      "hint": "Used for public holidays, so deadlines and waiting times count real working days.",
+      "none": "No country selected",
+      "fallbackNotice": "The full country list could not be loaded, so a short list of European countries is shown."
+    },
     "empty": {
       "title": "No life events available",
       "body": "The catalogue is empty. Run the seed to load it."
@@ -55,13 +61,17 @@
     "title": "Your journeys",
     "count": "{count, plural, =0 {No journeys yet} one {# journey} other {# journeys}}",
     "add": "New journey",
-    "edit": "Rename",
+    "edit": "Edit",
     "backToJourneys": "All journeys",
-    "editTitle": "Rename journey",
+    "editTitle": "Edit journey",
     "form": {
       "title": "Name",
       "hint": "Leave empty to use the name of the life event. 80 characters max.",
       "save": "Save changes",
+      "country": "Country of the offices",
+      "countryHint": "Used for public holidays, so deadlines and waiting times count real working days.",
+      "countryNone": "No country selected",
+      "countryFallbackNotice": "The full country list could not be loaded, so a short list of European countries is shown.",
       "errors": {
         "nameTooLong": "The name is too long (80 characters max).",
         "notFound": "This journey no longer exists."

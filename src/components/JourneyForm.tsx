@@ -2,23 +2,30 @@
 
 import { useTranslations } from "next-intl";
 import { useActionState, useId } from "react";
+import { CountrySelect } from "@/components/CountrySelect";
 import { SubmitButton } from "@/components/SubmitButton";
+import type { Country } from "@/lib/restCountries";
 import { ui } from "@/lib/ui";
 import type { JourneyFormState } from "@/app/[locale]/journeys/actions";
 
 type Props = {
   action: (prev: JourneyFormState, formData: FormData) => Promise<JourneyFormState>;
   initialTitle: string;
+  initialCountry: string;
+  countries: Country[];
+  /** True when the short built-in country list is shown because the country service failed. */
+  countriesFallback: boolean;
 };
 
-/** Edit form for a journey (F3 update). Client-side so the typed name survives an error. */
-export function JourneyForm({ action, initialTitle }: Props) {
+/** Edit form for a journey (F3 update): name and country. Client-side so typed values survive an error. */
+export function JourneyForm({ action, initialTitle, initialCountry, countries, countriesFallback }: Props) {
   const t = useTranslations("journeys.form");
   const [state, formAction] = useActionState(action, {});
   const baseId = useId();
   const errorId = `${baseId}-error`;
   const invalid = state.error === "nameTooLong";
-  const value = state.values?.title ?? initialTitle;
+  const title = state.values?.title ?? initialTitle;
+  const country = state.values?.countryCode ?? initialCountry;
 
   return (
     <form action={formAction} className="flex flex-col gap-5" noValidate>
@@ -37,7 +44,7 @@ export function JourneyForm({ action, initialTitle }: Props) {
           type="text"
           maxLength={80}
           autoComplete="off"
-          defaultValue={value}
+          defaultValue={title}
           className={ui.input}
           aria-invalid={invalid}
           aria-describedby={invalid ? errorId : `${baseId}-hint`}
@@ -46,6 +53,16 @@ export function JourneyForm({ action, initialTitle }: Props) {
           {t("hint")}
         </p>
       </div>
+      <CountrySelect
+        id={`${baseId}-country`}
+        name="countryCode"
+        label={t("country")}
+        hint={t("countryHint")}
+        noneLabel={t("countryNone")}
+        notice={countriesFallback ? t("countryFallbackNotice") : null}
+        countries={countries}
+        defaultValue={country}
+      />
       <SubmitButton>{t("save")}</SubmitButton>
     </form>
   );
