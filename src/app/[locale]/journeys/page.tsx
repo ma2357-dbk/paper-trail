@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import { Suspense } from "react";
 import { connection } from "next/server";
 import { getTranslations } from "next-intl/server";
@@ -8,6 +9,11 @@ import { eventTitle } from "@/lib/catalog";
 import { prisma } from "@/lib/db";
 import { ui } from "@/lib/ui";
 import { deleteJourney } from "./actions";
+
+export async function generateMetadata(): Promise<Metadata> {
+  const t = await getTranslations("journeys");
+  return { title: t("title") };
+}
 
 /** Screen 09: all journeys. */
 export default function JourneysPage() {

@@ -52,6 +52,9 @@ Two layers: the **catalogue** (`LifeEvent`, `StepTemplate`, `DocumentType`, `Ste
 
 | Route | Screens |
 |---|---|
+| `/[locale]` | 01: home with the current journeys and the entry points |
+| `/[locale]/events` | 03: pick a life event and start a journey |
+| `/[locale]/journeys`, `/journeys/[id]/edit` | 09, 10: all journeys with progress, rename, delete with confirmation |
 | `/[locale]/documents`, `/documents/new`, `/documents/[id]` | 11–14: documents wallet, add/scan, reading state, edit and delete with confirmation |
 | `/[locale]/journeys/[id]/steps` | 16: status of every step |
 | `/[locale]/journeys/[id]/steps/[stepId]` | 15, 17, 18, 19: requirements, waiting for a reply, rejected, recent corrections |
@@ -78,8 +81,9 @@ Translations live in `messages/<locale>.json`. To add a locale: copy `messages/e
 
 ## Known limitations
 
-- Croatian strings were drafted by a non-native speaker and are being reviewed by Maroje.
-- Accessibility (see `docs/part-b/07-accessibility.md` for the full ten-minute check): the screen-reader walkthrough is still to be done (#8); disabled buttons keep a 2.6:1 label contrast (#6); the native date input's calendar icon has no visible focus ring in Chrome.
+- Journeys started from screen 03 are always Croatian (`countryCode: "HR"`) until the country picker (#17) exists.
+- Croatian strings were drafted by a non-native speaker and reviewed by Maroje (#10, #13).
+- Accessibility (see `docs/part-b/07-accessibility.md` for the full ten-minute check): the screen-reader walkthrough was done through the accessibility tree, not with VoiceOver audio (#8); disabled buttons keep a 2.6:1 label contrast (#6); the native date input's calendar icon has no visible focus ring in Chrome.
 - Unknown document or journey ids render the not-found screen but, because the page streams, with HTTP status 200 (#5).
 - Offline mode is read-only: pages already loaded stay readable and forms are disabled; there is no service worker, so a cold load without a connection fails (#7).
 - Server Actions resolve the locale with `getLocale()`; next-intl notes root params are not yet supported there, so a future upgrade may need an explicit locale.
