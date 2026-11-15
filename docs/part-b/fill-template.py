@@ -1,6 +1,6 @@
-"""Fill Hlib's Part B sections of the UX Deliverable 2 template from docs/part-b/*.md.
+"""Fill the Part B template (UX Deliverable 2) from docs/part-b/*.md.
 
-Usage: python fill_docx.py <template.docx> <docs/part-b dir> <out.docx>
+Usage: python fill-template.py <template.docx> <docs/part-b dir> <out.docx> [--with-7] [--team]
 Template tables are addressed by their index in the document body (T15 = 2.1 Stack, ...),
 which was read off the template with python-docx; the script asserts the first-row text so a
 changed template fails loudly instead of filling the wrong table.
@@ -363,5 +363,176 @@ if acc_path.exists() and "--with-7" in sys.argv:
     fill_rows(table(49, "Issue"), md_tables(md_section(acc, "7.5 Known accessibility issues we did not fix"))[0][1:], size=9)
     set_cell(table(50, "").rows[0].cells[0], md_prose(md_section(acc, "7.6 Inclusive design decisions")), 9.5)
 
+
+# ============================================================================= team sections (1, 3, 6.1, 6.5, 6.6, 6.8, 8–13)
+if "--team" in sys.argv:
+    def remove_rows(t: Table, idxs):
+        for i in sorted(idxs, reverse=True):
+            t._tbl.remove(t.rows[i]._tr)
+
+    def remove_cols(t: Table, idxs):
+        grid = t._tbl.find(qn("w:tblGrid"))
+        cols = list(grid.findall(qn("w:gridCol"))) if grid is not None else []
+        for i in sorted(idxs, reverse=True):
+            for tr in t._tbl.findall(qn("w:tr")):
+                tcs = tr.findall(qn("w:tc"))
+                if i < len(tcs):
+                    tr.remove(tcs[i])
+            if i < len(cols) and grid is not None:
+                grid.remove(cols[i])
+
+    def set_header_cell(cell, text):
+        p = clear_cell(cell); r = p.add_run(text); r.bold = True; r.font.size = Pt(9.5)
+
+    def image_pair(t: Table, left: Path, right: Path, width=HALF, labels=None):
+        if labels:
+            set_header_cell(t.rows[0].cells[0], labels[0]); set_header_cell(t.rows[0].cells[1], labels[1])
+        set_image(t.rows[1].cells[0], left, width); set_image(t.rows[1].cells[1], right, width)
+
+    def remove_block(heading_prefix: str):
+        """Remove a heading paragraph and the table that follows it."""
+        p = find_paragraph(heading_prefix)
+        nxt = p._p.getnext()
+        while nxt is not None and nxt.tag != qn("w:tbl"):
+            n2 = nxt.getnext(); nxt.getparent().remove(nxt); nxt = n2
+        if nxt is not None:
+            nxt.getparent().remove(nxt)
+        p._p.getparent().remove(p._p)
+
+    # ---- 1. Team
+    team = (DOCS / "01-team.md").read_text()
+    fill_kv(table(11, "Team name"), md_tables(md_section(team, "1.1 Identification"))[0], size=9.5)
+    fill_rows(table(12, "Name"), md_tables(md_section(team, "1.2 Team members"))[0][1:], size=9)
+    set_cell(table(13, "What it does").rows[0].cells[0], md_prose(md_section(team, "1.3 The product in three sentences")), 10)
+    sec14 = md_section(team, "1.4 Elevator demo path")
+    t14 = table(14, "Step")
+    para_before(t14, md_prose(sec14.split("|")[0]))
+    fill_rows(t14, md_tables(sec14)[0][1:], size=8.5)
+
+    # ---- 3. Screens
+    scr = (DOCS / "03-screens.md").read_text()
+    sec31 = md_section(scr, "3.1 Merged screen map")
+    t18 = table(18, "#")
+    para_before(t18, md_prose(sec31.split("|")[0]))
+    fill_rows(t18, md_tables(sec31)[0][1:], size=8.5)
+    set_cell(table(19, "Feature areas").rows[0].cells[0], md_prose(md_section(scr, "3.2 What was dropped or merged, and why")), 9.5)
+    sec33 = md_section(scr, "3.3 Screens of the finished application")
+    pairs = re.findall(r"\| \*\*(Screen: [^*]+)\*\* !\[[^\]]*\]\(([^)]+)\) \| \*\*(Screen: [^*]+)\*\* !\[[^\]]*\]\(([^)]+)\) \|", sec33)
+    caps = re.findall(r"^\*Figure 3\.\d — (.*?)\*$", sec33, re.M)
+    assert len(pairs) == 5 and len(caps) == 5, (len(pairs), len(caps))
+    shot_tables = [table(20, "Screen"), table(21, "Screen"), table(22, "Screen")]
+    cap_paras = [find_paragraph("Figure 3.1"), find_paragraph("Figure 3.2"), find_paragraph("Figure 3.3")]
+    # add two more table+caption pairs after Figure 3.3
+    last_tbl, last_cap = shot_tables[-1], cap_paras[-1]
+    for i in (4, 5):
+        new_tbl = copy.deepcopy(last_tbl._tbl); new_cap = copy.deepcopy(last_cap._p)
+        last_cap._p.addnext(new_tbl); new_tbl.addnext(new_cap)
+        shot_tables.append(Table(new_tbl, doc)); cap_paras.append(Paragraph(new_cap, doc._body))
+        last_tbl, last_cap = shot_tables[-1], cap_paras[-1]
+    note = para_before(shot_tables[0], md_prose(sec33.split("|")[0]), 9.5)
+    for t, cp, (l1, f1, l2, f2), cap in zip(shot_tables, cap_paras, pairs, caps):
+        image_pair(t, DOCS / f1, DOCS / f2, 6.2, labels=(l1.strip(), l2.strip()))
+        for r in list(cp.runs):
+            r._r.getparent().remove(r._r)
+        inline(cp, f"*Figure 3.{shot_tables.index(t) + 1} — {cap}*", 9)
+
+    # ---- 6.1, 6.5, 6.6, 6.8
+    sec61 = md_section(i18n, "6.1 Locales implemented")
+    t33 = table(33, "Locale")
+    fill_rows(t33, md_tables(sec61)[0][1:], size=8.5)
+    para_after(t33, md_prose(sec61.split("|")[-1]), 9.5)
+    sec65 = md_section(i18n, "6.5 Same screen, three locales")
+    para_before(table(38, "English"), md_prose(sec65.split("|")[0]), 9.5)
+    image_pair(table(38, "English"), FIG / "fig-6-2-events-en.png", FIG / "fig-6-2-events-hr.png", 6.8)
+    set_image(table(39, "[ Insert screensho").rows[0].cells[0], FIG / "fig-6-2-events-ru.png", 6.8)
+    f63 = re.search(r"\*Figure 6\.3 — (.*?)\*", sec65, re.S)
+    para_after(find_paragraph("Figure 6.3"), f63.group(1).replace("\n", " "), 9)
+    sec66 = md_section(i18n, "6.6 Text expansion and layout")
+    fill_kv(table(40, "Longest locale"), md_tables(sec66)[0], size=9)
+    image_pair(table(41, "Shortest"), FIG / "fig-6-4-steps-en.png", FIG / "fig-6-4-steps-ru.png", 6.8)
+    f64 = re.search(r"\*Figure 6\.4 — (.*?)\*", sec66, re.S)
+    para_after(find_paragraph("Figure 6.4"), f64.group(1).replace("\n", " "), 9)
+    t44 = table(44, "Element")
+    rows68 = md_tables(md_section(i18n, "6.8 Cultural checks"))[0][1:]
+    assert len(rows68) == 5
+    for r, mr in zip(t44.rows[1:], rows68):
+        key_t = re.sub(r"\W+", " ", r.cells[0].text.lower()).strip()[:10]
+        key_m = re.sub(r"\W+", " ", mr[0].strip("* ").lower()).strip()[:10]
+        assert key_t[:6] == key_m[:6], (key_t, key_m)
+        set_cell(r.cells[1], mr[1], 8.5); set_cell(r.cells[2], mr[2], 8.5)
+
+    # ---- 8. Git
+    git = (DOCS / "08-git.md").read_text()
+    set_cell(table(51, "Describe the model").rows[0].cells[0], md_prose(md_section(git, "8.1 Our branching model")), 9.5)
+    set_image(table(52, "[ Insert screensho").rows[0].cells[0], FIG / "fig-8-1-network-graph.png", FULL)
+    set_image(table(53, "[ Insert screensho").rows[0].cells[0], FIG / "fig-8-2-contributors.png", FULL)
+    sec82 = md_section(git, "8.2 Repository evidence")
+    for fig, pref in (("8.1", "Figure 8.1"), ("8.2", "Figure 8.2")):
+        m = re.search(r"\*Figure " + fig.replace(".", r"\.") + r" — (.*?)\*", sec82, re.S)
+        para_after(find_paragraph(pref), m.group(1).replace("\n", " "), 9)
+    sec83 = md_section(git, "8.3 Commits per member per week")
+    t54 = table(54, "Week")
+    remove_cols(t54, [3, 4, 5])
+    rows83 = md_tables(sec83)[0]
+    set_header_cell(t54.rows[0].cells[1], rows83[0][1].strip("* ")); set_header_cell(t54.rows[0].cells[2], rows83[0][2].strip("* "))
+    remove_rows(t54, range(5, 13))  # keep W1–W4 + Total
+    assert len(t54.rows) == 6
+    for r, mr in zip(t54.rows[1:], rows83[1:]):
+        set_cell(r.cells[0], mr[0], 9); set_cell(r.cells[1], mr[1], 9); set_cell(r.cells[2], mr[2], 9)
+    for r in t54.rows:
+        for c, w in zip(r.cells, (3.5, 6.0, 6.0)):
+            c.width = Cm(w)
+    para_before(t54, md_prose(sec83.split("|")[0]), 9.5)
+    para_after(t54, md_prose(sec83.split("|")[-1]), 9.5)
+    fill_rows(table(55, "PR"), md_tables(md_section(git, "8.4 Pull requests"))[0][1:], size=8.5)
+    set_cell(table(56, "What worked").rows[0].cells[0], md_prose(md_section(git, "8.5 Honest account of the collaboration")), 9.5)
+
+    # ---- 9. Weekly log
+    wk = (DOCS / "09-weekly-log.md").read_text()
+    body9 = wk.split("\n", 1)[1]
+    t57 = table(57, "Week")
+    para_before(t57, md_prose(body9.split("|")[0]), 9.5)
+    fill_rows(t57, md_tables(body9)[0][1:], size=8.5)
+
+    # ---- 10. Testing
+    tst = (DOCS / "10-testing.md").read_text()
+    t58 = table(58, "Type")
+    rows101 = md_tables(md_section(tst, "10.1 How the product was tested"))[0][1:]
+    assert len(rows101) == 5
+    for r, mr in zip(t58.rows[1:], rows101):
+        set_cell(r.cells[1], mr[1], 8.5); set_cell(r.cells[2], mr[2], 8.5)
+    fill_rows(table(59, "Issue"), md_tables(md_section(tst, "10.2 Known bugs and limitations"))[0][1:], size=8.5)
+    set_cell(table(60, "The next three").rows[0].cells[0], md_prose(md_section(tst, "10.3 What we would do next")), 9.5)
+
+    # ---- 11. Contributions (two members)
+    con = (DOCS / "11-contributions.md").read_text()
+    m1 = re.search(r"### Member 1\n(.*?)### Member 2", con, re.S).group(1)
+    m2 = re.search(r"### Member 2\n(.*)", con, re.S).group(1)
+    fill_kv(table(61, "Name"), md_tables(m1)[0], size=9)
+    fill_kv(table(62, "Name"), md_tables(m2)[0], size=9)
+    intro11 = md_prose(con.split("### Member 1")[0].split("\n", 1)[1])
+    para_after(find_paragraph("11. Individual contribution statements"), intro11, 9.5)
+    for h in ("Member 5", "Member 4", "Member 3"):
+        remove_block(h)
+
+    # ---- 12. AI declaration
+    ai = (DOCS / "12-ai.md").read_text()
+    tabs12 = md_tables(ai)
+    fill_rows(table(66, "Tool / model"), tabs12[0][1:], size=8.5)
+    fill_rows(table(67, "Name"), tabs12[1][1:], size=9.5)
+
+    # ---- 13. Checklist
+    chk = md_tables((DOCS / "13-checklist.md").read_text())[0][1:]
+    boxes = [p for p in doc.paragraphs if p.text.strip().startswith("☐")]
+    assert len(boxes) == len(chk), (len(boxes), len(chk))
+    for p, (item, status) in zip(boxes, chk):
+        for r in list(p.runs):
+            r._r.getparent().remove(r._r)
+        box, _, note = status.partition(" ")
+        inline(p, f"{box} {item} — {note}", 9.5)
+
+# Ask Word to refresh the table of contents (page numbers, removed Member 3–5 headings) on open.
+_settings = doc.settings.element
+_uf = OxmlElement("w:updateFields"); _uf.set(qn("w:val"), "true"); _settings.append(_uf)
 doc.save(str(OUT))
 print("saved", OUT)

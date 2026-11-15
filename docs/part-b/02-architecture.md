@@ -70,7 +70,7 @@ the same process, which write through Prisma, call `revalidatePath` and redirect
 | `src/i18n/` | next-intl configuration: `routing.ts` (locales, default, RTL set), `request.ts` (locale from the root param, message loading with en fallback), `navigation.ts` (locale-aware `Link`/`redirect`), `actionLocale.ts` (locale inside Server Actions). |
 | `src/proxy.ts` | The next-intl middleware (Next 16 name for middleware). |
 | `src/hooks/` | `useOnline` (navigator online state through `useSyncExternalStore`). |
-| `messages/` | `en.json` (source), `hr.json`, `ru.json`; 213 keys each, nested by screen and by catalogue id. |
+| `messages/` | `en.json` (source), `hr.json`, `ru.json`; 240 keys each, nested by screen and by catalogue id. |
 | `prisma/` | `schema.prisma`, `migrations/` (one migration per schema change, applied with `prisma migrate deploy`), `seed.ts`, and the ignored `dev.db`. |
 | `src/generated/prisma/` | The generated Prisma client (created on `npm install`, not committed). |
 | `docs/part-b/` | This document's drafts and figures. |

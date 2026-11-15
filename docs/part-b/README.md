@@ -1,18 +1,26 @@
-# Part B — submission document, Hlib's sections
+# Part B — submission document
 
-Draft text for the Part B template (`UX_Deliverable2_Implementation_Template.docx`), one file per
-section that Hlib owns. Maroje pastes these into the shared .docx next to his sections; the
-figures are in `figures/`. Everything here is copied from the running product or the code, not
-from documentation — the repository is the evidence, this is the guided tour.
+Text for every section of the Part B template (`UX_Deliverable2_Implementation_Template.docx`), one
+Markdown file per section; the figures are in `figures/`. Everything here is copied from the
+running product, the code or the GitHub record, not from documentation — the repository is the
+evidence, this is the guided tour. The generated `Team00_UX_Deliverable2.docx` / `.pdf` are the
+submission.
 
-| Section | File | Owner |
+| Section | File | Written by |
 |---|---|---|
+| 1 Team, product and repository | [01-team.md](01-team.md) | Hlib |
 | 2 Architecture and technology | [02-architecture.md](02-architecture.md) | Hlib |
+| 3 From wireframes to screens | [03-screens.md](03-screens.md) | Hlib (Maroje confirms the names of his dropped screens 02, 04–08) |
 | 4 Database | [04-database.md](04-database.md) | Hlib |
 | 5 External REST API integration | [05-external-api.md](05-external-api.md) | Hlib |
-| 6.2 How i18n is implemented, 6.3 Plural rules, 6.4 Locale-aware formatting, 6.7 Direction and script | [06-i18n.md](06-i18n.md) | Hlib |
-| 7 Accessibility report, screens 11–20 | [07-accessibility.md](07-accessibility.md) | Hlib (Maroje adds screens 01–10) |
-| 1, 3, 6.1, 6.5, 6.6, 6.8, 8, 9, 12 | — | Maroje |
+| 6 Internationalization and localization (6.1–6.8) | [06-i18n.md](06-i18n.md) | Hlib; Croatian checked by Maroje |
+| 7 Accessibility report, screens 01–20 | [07-accessibility.md](07-accessibility.md) | Hlib |
+| 8 Git history and teamwork | [08-git.md](08-git.md) | Hlib |
+| 9 Weekly progress log | [09-weekly-log.md](09-weekly-log.md) | Hlib (Maroje adds his reasons for the empty weeks) |
+| 10 Testing, quality and known issues | [10-testing.md](10-testing.md) | Hlib |
+| 11 Individual contribution statements | [11-contributions.md](11-contributions.md) | Hlib; Maroje's block drafted from the repository, to be confirmed and signed by him |
+| 12 AI usage declaration | [12-ai.md](12-ai.md) | Hlib; Maroje names his assistant and signs |
+| 13 Submission checklist | [13-checklist.md](13-checklist.md) | Hlib |
 
 ## How the evidence was produced
 
@@ -31,8 +39,15 @@ from documentation — the repository is the evidence, this is the guided tour.
 
 ## Filled template
 
-`UX_Deliverable2_PartB_Hlib-sections.docx` is the official template with sections 2, 4, 5, 6.2–6.4,
-6.7 and 7 filled in from the Markdown files above (figures embedded). It is generated, not edited by
-hand: `python fill-template.py <template.docx> docs/part-b <out.docx> --with-7` (needs
-`python-docx`). Maroje fills sections 1, 3, 6.1, 6.5, 6.6, 6.8, 8, 9, 12 and his part of 7 in the
-same file and exports the PDF.
+`Team00_UX_Deliverable2.docx` is the official template with every section filled from the Markdown
+files above (figures embedded). It is generated, not edited by hand:
+
+```bash
+python docs/part-b/fill-template.py <UX_Deliverable2_Implementation_Template.docx> docs/part-b docs/part-b/Team00_UX_Deliverable2.docx --with-7 --team
+```
+
+(needs `python-docx`). `Team00_UX_Deliverable2.pdf` is the PDF export of that file. Three things
+in it are Maroje's to finish before it is final: his contribution statement and signature (11, 12),
+the name of the AI assistant he used (12), and the reasons for the weeks without commits (9).
+`UX_Deliverable2_PartB_Hlib-sections.docx` is the earlier partial build (Hlib's sections only) and
+can be deleted once the full one is reviewed.

@@ -90,7 +90,9 @@ Translations live in `messages/<locale>.json`. To add a locale: copy `messages/e
 
 ## Submission document
 
-Drafts of the Part B sections Hlib owns (architecture, database and ERD, external API, i18n 6.2–6.4 and 6.7, accessibility report for screens 11–20) are in [`docs/part-b/`](docs/part-b/README.md) with the figures and the Mermaid sources of the diagrams.
+Part B of the deliverable (every section of the template, with figures and the Mermaid sources of
+the diagrams) is in [`docs/part-b/`](docs/part-b/README.md); the filled template is
+`docs/part-b/Team00_UX_Deliverable2.docx` and its PDF export `Team00_UX_Deliverable2.pdf`.
 
 ## Third-party code and attribution
 
