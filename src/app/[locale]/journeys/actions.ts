@@ -26,7 +26,7 @@ export async function renameJourney(
   await prisma.journey.update({ where: { id }, data: { title: title || null } });
 
   revalidatePath("/", "layout");
-  redirect({ href: "/journeys", locale: await getActionLocale() });
+  redirect({ href: "/journeys#journeys-title", locale: await getActionLocale() });
   return {};
 }
 
@@ -37,5 +37,5 @@ export async function deleteJourney(formData: FormData) {
     await prisma.journey.deleteMany({ where: { id } });
   }
   revalidatePath("/", "layout");
-  redirect({ href: "/journeys", locale: await getActionLocale() });
+  redirect({ href: "/journeys#journeys-title", locale: await getActionLocale() });
 }

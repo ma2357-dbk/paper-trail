@@ -30,5 +30,6 @@ export async function startJourney(formData: FormData) {
   });
 
   revalidatePath("/", "layout");
-  redirect({ href: `/journeys/${journey.id}/steps`, locale });
+  // The hash makes FocusOnHash on screen 16 move focus to the new journey's title (7.3).
+  redirect({ href: `/journeys/${journey.id}/steps#steps-title`, locale });
 }

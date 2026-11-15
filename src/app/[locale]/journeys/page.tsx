@@ -3,10 +3,12 @@ import { Suspense } from "react";
 import { connection } from "next/server";
 import { getTranslations } from "next-intl/server";
 import { ConfirmDelete } from "@/components/ConfirmDelete";
+import { FocusOnHash } from "@/components/FocusOnHash";
 import { LoadingSkeleton } from "@/components/LoadingSkeleton";
 import { Link } from "@/i18n/navigation";
 import { eventTitle } from "@/lib/catalog";
 import { prisma } from "@/lib/db";
+import { now } from "@/lib/time";
 import { ui } from "@/lib/ui";
 import { deleteJourney } from "./actions";
 
@@ -38,9 +40,11 @@ async function JourneysContent() {
 
   return (
     <section className="flex flex-col gap-4">
+      {/* After rename / delete the action redirects to #journeys-title so the result is announced (7.3). */}
+      <FocusOnHash key={now()} />
       <div className="flex items-start justify-between gap-3">
         <div>
-          <h1 className="text-2xl font-semibold">{t("title")}</h1>
+          <h1 id="journeys-title" className="text-2xl font-semibold">{t("title")}</h1>
           <p className="text-neutral-700">{t("count", { count: journeys.length })}</p>
         </div>
         <Link href="/events" className={ui.buttonPrimary}>

@@ -46,6 +46,7 @@
     "intro": "Odaberite jedno, a mi ćemo složiti popis koraka, dokumenata i rokova.",
     "stepsCount": "{count, plural, one {# korak} few {# koraka} other {# koraka}}",
     "start": "Započni",
+    "startNamed": "Započni {name}",
     "empty": {
       "title": "Nema dostupnih životnih događaja",
       "body": "Katalog je prazan. Pokrenite seed da ga učitate."
