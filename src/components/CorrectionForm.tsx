@@ -1,7 +1,7 @@
 "use client";
 
 import { useTranslations } from "next-intl";
-import { useActionState, useId } from "react";
+import { useActionState, useEffect, useId } from "react";
 import { SubmitButton } from "@/components/SubmitButton";
 import { ui } from "@/lib/ui";
 import type { CorrectionFormState } from "@/app/[locale]/journeys/[journeyId]/steps/actions";
@@ -12,6 +12,11 @@ export function CorrectionForm({ action }: Props) {
   const t = useTranslations("steps.corrections");
   const [state, formAction] = useActionState(action, {});
   const id = useId();
+
+  // Focus the textarea again when the text was rejected, so the error is heard in context.
+  useEffect(() => {
+    if (state.error) document.getElementById(id)?.focus();
+  }, [state, id]);
 
   return (
     <form key={state.savedAt ?? "new"} action={formAction} className="flex flex-col gap-2" noValidate>

@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import { Suspense } from "react";
 import { connection } from "next/server";
 import { getTranslations, getLocale } from "next-intl/server";
@@ -9,18 +10,23 @@ import { prisma } from "@/lib/db";
 import { ui } from "@/lib/ui";
 import { createDocument } from "../actions";
 
+export async function generateMetadata(): Promise<Metadata> {
+  const t = await getTranslations("documents");
+  return { title: t("newTitle") };
+}
+
 /** Screen 12: add a document, optionally scanning it with the phone camera. */
-export default function NewDocumentPage(props: PageProps<"/[locale]/documents/new">) {
+export default function NewDocumentPage() {
   // Params of dynamic segments are request data: nothing is awaited here so the
   // skeleton below can be prerendered as the static shell.
   return (
     <Suspense fallback={<LoadingSkeleton rows={4} />}>
-      <NewDocumentContent {...props} />
+      <NewDocumentContent />
     </Suspense>
   );
 }
 
-async function NewDocumentContent({ params }: PageProps<"/[locale]/documents/new">) {
+async function NewDocumentContent() {
   const locale = await getLocale();
   // Read from the database at request time, never at build time (cacheComponents).
   await connection();

@@ -46,6 +46,7 @@
     "intro": "Pick one and we will build your list of steps, documents and deadlines.",
     "stepsCount": "{count, plural, one {# step} other {# steps}}",
     "start": "Start",
+    "startNamed": "Start {name}",
     "empty": {
       "title": "No life events available",
       "body": "The catalogue is empty. Run the seed to load it."
@@ -259,6 +260,7 @@
       "attachLabel": "Pick from your wallet",
       "attach": "Attach",
       "detach": "Remove",
+      "detachNamed": "Remove {name}",
       "addToWallet": "Add it to your wallet"
     },
     "waiting": {

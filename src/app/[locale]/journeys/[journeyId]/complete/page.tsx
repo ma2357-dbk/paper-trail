@@ -1,12 +1,20 @@
+import type { Metadata } from "next";
 import { Suspense } from "react";
 import { notFound } from "next/navigation";
 import { connection } from "next/server";
 import { getFormatter, getTranslations } from "next-intl/server";
+import { FocusOnHash } from "@/components/FocusOnHash";
 import { LoadingSkeleton } from "@/components/LoadingSkeleton";
 import { Link } from "@/i18n/navigation";
 import { eventTitle } from "@/lib/catalog";
 import { prisma } from "@/lib/db";
+import { now } from "@/lib/time";
 import { ui } from "@/lib/ui";
+
+export async function generateMetadata(): Promise<Metadata> {
+  const t = await getTranslations("complete");
+  return { title: t("title") };
+}
 
 /** Screen 20: the path is complete. */
 export default function CompletePage(props: PageProps<"/[locale]/journeys/[journeyId]/complete">) {
@@ -56,10 +64,11 @@ async function CompleteContent({ params }: PageProps<"/[locale]/journeys/[journe
 
   return (
     <section className="flex flex-col items-start gap-4">
+      <FocusOnHash key={now()} />
       <p className="text-5xl" aria-hidden="true">
         🎉
       </p>
-      <h1 className="text-2xl font-semibold">{t("title")}</h1>
+      <h1 id="complete-title" className="text-2xl font-semibold">{t("title")}</h1>
       <p className="text-neutral-700">{t("body", { title })}</p>
       <dl className={`${ui.card} grid w-full grid-cols-[auto_1fr] gap-x-4 gap-y-1 text-sm`}>
         <dt className="font-medium">{t("stepsDone")}</dt>

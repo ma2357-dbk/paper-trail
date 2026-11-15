@@ -1,0 +1,236 @@
+=== 1. Screen 12 — add a document with a scan (/en/documents/new)
+Title: Paper Trail | lang: en
+Landmarks: header, nav[Main navigation], main
+Headings: h1 "Add a document"
+[Live regions] page load (skeleton → content): nothing announced
+Form as exposed to AT:
+    - main:
+      - link "← Back to documents":
+        - /url: /en/documents
+      - heading "Add a document" [level=1]
+      - text: Name
+      - textbox "Name"
+      - paragraph: How you call it, e.g. “Passport” or “Lease for Ilica 5”.
+      - text: Type
+      - combobox "Type":
+        - option "Not set" [selected]
+        - option "Birth certificate"
+        - option "Employment contract"
+        - option "Enrolment confirmation"
+        - option "Health insurance card"
+        - option "ID card"
+        - option "Lease contract"
+        - option "OIB certificate"
+        - option "Passport"
+        - option "Passport photo"
+        - option "Proof of address"
+      - text: Valid until
+      - textbox "Valid until"
+      - text: Scan or photo
+      - button "Scan or photo"
+      - paragraph: JPEG, PNG, WebP or PDF up to 2 MB. On a phone this opens the camera.
+      - button "Save document"
+
+[Tab order] screen 12
+   1. - link "Skip to content":   - /url: "#main"
+   2. - link "Paper Trail":   - /url: /en
+   3. - link "Documents":   - /url: /en/documents
+   4. - combobox "Language":   - option "English" [selected]   - option "Hrvatski"   - option "Русский"  value="English"
+   5. - link "← Back to documents":   - /url: /en/documents
+   6. - textbox "Name"  describedby="How you call it, e.g. “Passport” or “Lease for Ilica 5”."
+   7. - combobox "Type":   - option "Not set" [selected]   - option "Birth certificate"   - option "Employment contract"   - option "Enrolment confirmation"   - option "Health insurance card"   - option "ID card"   - option "Lease contract"   - option "OIB certificate"   - option "Passport"   - option "Passport photo"   - option "Proof of address"  value="Not set"
+   8. - textbox "Valid until"
+   9. - textbox "Valid until"
+  10. - textbox "Valid until"
+  11. (no focus)
+  12. - button "Scan or photo"  describedby="JPEG, PNG, WebP or PDF up to 2 MB. On a phone this opens the camera."
+  13. - button "Save document"
+Typed name; field now: - textbox "Name": Dokaz o adresi · Savska 41
+Chose type: Proof of address
+Attached scan via file input: - combobox "Type":   - option "Not set"   - option "Birth certificate"   - option "Employment contract"   - option "Enrolment confirmation"   - option "Health insurance card"   - option "ID card"   - option "Lease contract"   - option "OIB certificate"   - option "Passport"   - option "Passport photo"   - option "Proof of address" [selected]
+Submit button name: Save document
+Button while pending: Reading your scan… (disabled)
+Redirected to: /en/documents/cmwe11ppf00013elgfdjs12nf
+[Live regions] submit → redirect: 
+    +32011ms aria-live=polite (polite): "Reading your scan…"
+    +32527ms status (polite): "Loading…"
+[Focus after save] body (document start)
+Title: Paper Trail | Headings: h1 "Dokaz o adresi · Savska 41"; h2 "Edit"; h2 "Delete this document"; h2 "Delete “Dokaz o adresi · Savska 41”?"; h1 "Add a document"
+Detail page as exposed to AT (first 25 lines):
+    - main:
+      - link "← Back to documents":
+        - /url: /en/documents
+      - heading "Dokaz o adresi · Savska 41" [level=1]
+      - paragraph: Last changed Nov 12, 2026, 9:55 PM
+      - figure "screen-11-wallet.png · 77 KB":
+        - img "Scan of Dokaz o adresi · Savska 41"
+        - text: screen-11-wallet.png · 77 KB
+      - heading "Edit" [level=2]
+      - text: Name
+      - textbox "Name": Dokaz o adresi · Savska 41
+      - paragraph: How you call it, e.g. “Passport” or “Lease for Ilica 5”.
+      - text: Type
+      - combobox "Type":
+        - option "Not set"
+        - option "Birth certificate"
+        - option "Employment contract"
+        - option "Enrolment confirmation"
+        - option "Health insurance card"
+        - option "ID card"
+        - option "Lease contract"
+        - option "OIB certificate"
+        - option "Passport"
+        - option "Passport photo"
+        - option "Proof of address" [selected]
+
+=== 1b. Screen 12 — validation error (empty name)
+[Live regions] empty submit: 
+    +14226ms aria-live=polite (polite): "Saving…"
+    +14570ms alert: "Give the document a name."
+    +14570ms aria-live=polite (polite): ""
+[Focus after validation error] body (document start)
+Name field when focused: - textbox "Name" [invalid] | describedby: Give the document a name. | invalid: true
+
+=== 2. Screen 16 — step overview (/en/journeys/…/steps)
+Title: Paper Trail | Headings: h1 "Selidba u Zagreb"
+Overview as exposed to AT:
+    - main:
+      - heading "Selidba u Zagreb" [level=1]
+      - paragraph: 1 of 5 steps done
+      - progressbar "1 of 5 steps done"
+      - list:
+        - listitem:
+          - link "1. Get a personal identification number (OIB) Done":
+            - /url: /en/journeys/cmwcquus10003yelgzvhfqrrt/steps/cmwcquus30004yelgptgijwvb
+        - listitem:
+          - link "2. Register your new address In progress Deadline Nov 25, 2026":
+            - /url: /en/journeys/cmwcquus10003yelgzvhfqrrt/steps/cmwcquus40005yelgpxf8pplz
+        - listitem:
+          - link "3. Apply for a residence permit Not started Deadline Jan 24, 2027":
+            - /url: /en/journeys/cmwcquus10003yelgzvhfqrrt/steps/cmwcquus60006yelgqg2aftn2
+        - listitem:
+          - link "4. Register for health insurance Not started Deadline Nov 25, 2026":
+            - /url: /en/journeys/cmwcquus10003yelgzvhfqrrt/steps/cmwcquus60007yelgpxvyj3n6
+        - listitem:
+          - link "5. Open a bank account Not started":
+            - /url: /en/journeys/cmwcquus10003yelgzvhfqrrt/steps/cmwcquus70008yelg9w74a62f
+
+[Tab order] screen 16
+   1. - link "Skip to content":   - /url: "#main"
+   2. - link "Paper Trail":   - /url: /en
+   3. - link "Documents":   - /url: /en/documents
+   4. - combobox "Language":   - option "English" [selected]   - option "Hrvatski"   - option "Русский"  value="English"
+   5. - link "1. Get a personal identification number (OIB) Done":   - /url: /en/journeys/cmwcquus10003yelgzvhfqrrt/steps/cmwcquus30004yelgptgijwvb
+   6. - link "2. Register your new address In progress Deadline Nov 25, 2026":   - /url: /en/journeys/cmwcquus10003yelgzvhfqrrt/steps/cmwcquus40005yelgpxf8pplz  current=step
+   7. - link "3. Apply for a residence permit Not started Deadline Jan 24, 2027":   - /url: /en/journeys/cmwcquus10003yelgzvhfqrrt/steps/cmwcquus60006yelgqg2aftn2
+   8. - link "4. Register for health insurance Not started Deadline Nov 25, 2026":   - /url: /en/journeys/cmwcquus10003yelgzvhfqrrt/steps/cmwcquus60007yelgpxvyj3n6
+   9. - link "5. Open a bank account Not started":   - /url: /en/journeys/cmwcquus10003yelgzvhfqrrt/steps/cmwcquus70008yelg9w74a62f
+Step link: - link "2. Register your new address In progress Deadline Nov 25, 2026":   - /url: /en/journeys/cmwcquus10003yelgzvhfqrrt/steps/cmwcquus40005yelgpxf8pplz aria-current=step
+[Focus after following the step link (client navigation)] body (document start)
+
+=== 3. Screen 15 — requirements, attach the new document
+Title: Paper Trail | Headings: h1 "Register your new address"; h2 "What to bring (2 of 3 ready)"; h2 "Update status"; h2 "Recent corrections"; h1 "Selidba u Zagreb"
+[Live regions] step page load: 
+    +6853ms status (polite): "Loading…"
+Step page as exposed to AT:
+    - main:
+      - article:
+        - link "← All steps":
+          - /url: /en/journeys/cmwcquus10003yelgzvhfqrrt/steps
+        - text: In progress
+        - heading "Register your new address" [level=1]
+        - paragraph: Within 30 days of moving in. Bring the lease and the landlord's proof of ownership.
+        - term: Where
+        - definition: Police administration (MUP), foreigners desk
+        - term: Deadline
+        - definition: Nov 25, 2026
+        - term: Fee
+        - definition: €0.00
+        - term: Typical wait
+        - definition: 5–10 working days
+        - region "What to bring (2 of 3 ready)":
+          - heading "What to bring (2 of 3 ready)" [level=2]
+          - list:
+            - listitem:
+              - paragraph: ID card Ready
+              - link "Osobna iskaznica · Ивана Šimunić":
+                - /url: /en/documents/cmwcquury0000yelgztgxs06b
+              - button "Remove"
+            - listitem:
+              - paragraph: Lease contract Ready
+              - link "Ugovor o najmu – Savska cesta 41":
+                - /url: /en/documents/cmwcquus00001yelg7jq5yuzt
+              - button "Remove"
+            - listitem:
+              - paragraph: Proof of address Missing
+              - text: Pick from your wallet
+              - combobox "Pick from your wallet":
+                - option "Dokaz o adresi · Savska 41" [selected]
+              - button "Attach"
+        - region "Update status":
+          - heading "Update status" [level=2]
+          - button "I submitted it"
+          - button "Mark as done"
+          - button "Reset to not started"
+        - region "Recent corrections":
+          - heading "Recent corrections" [level=2]
+          - paragraph: "Changes other people noticed: moved offices, new fees, new forms."
+          - list:
+            - listitem:
+              - paragraph: Office moved to Savska 41, 2nd floor
+              - paragraph: 1 week ago · 2 confirmations, 0 disputes
+              - button "Still true"
+              - button "Not true"
+          - text: Report a change
+          - textbox "Report a change"
+          - paragraph: Up to 300 characters. Say what changed and when.
+          - button "Send"
+
+[Tab order] screen 15 (before attaching)
+Attach selects on page: 1
+Picked: - combobox "Pick from your wallet":   - option "Dokaz o adresi · Savska 41" [selected] value=Dokaz o adresi · Savska 41
+[Live regions] attach: 
+    +37106ms aria-live=polite (polite): "Saving…"
+[Focus after attach (server action + refresh)] body (document start)
+Requirements heading now: What to bring (3 of 3 ready)
+Proof of address card: - listitem:   - paragraph: Proof of address Ready   - link "Dokaz o adresi · Savska 41":     - /url: /en/documents/cmwe11ppf00013elgfdjs12nf   - button "Remove"
+
+=== 4. Screen 16 → 17 — mark as submitted, read the reply window
+Button: - button "I submitted it"
+[Live regions] mark submitted: 
+    +68168ms aria-live=polite (polite): "Saving…"
+[Focus after status change] body (document start)
+Headings: h1 "Register your new address"; h2 "What to bring (3 of 3 ready)"; h2 "Waiting for a reply"; h2 "Update status"; h2 "Recent corrections"; h1 "Selidba u Zagreb"
+Waiting section as exposed to AT:
+    - region "Waiting for a reply":
+      - heading "Waiting for a reply" [level=2]
+      - paragraph: Submitted on Nov 12, 2026.
+      - paragraph: Expect an answer between Nov 20, 2026 and Nov 27, 2026.
+      - progressbar "0 working days of 10 passed"
+      - paragraph: 0 working days of 10 passed
+      - paragraph: "1 public holiday in this window: Dan sjećanja na žrtve Domovinskog rata (Nov 18, 2026)"
+Progress element: value=0 max=10 aria-label="0 working days of 10 passed" position=0
+Badge: Submitted, waiting
+
+[Tab order] screen 17 (after submission)
+   1. - button "Approved, mark as done"
+   2. - button "Reset to not started"
+   3. - textbox "What did the office say?":   - /placeholder: e.g. the lease is missing a stamp
+   4. - button "It was rejected"
+   5. - button "Still true"  value="confirm"
+   6. - button "Not true"  value="dispute"
+   7. - textbox "Report a change"  describedby="Up to 300 characters. Say what changed and when."
+   8. - button "Send"
+Native date input focus stops (screen 12), for 7.3: input:date → input:date → input:date → input:date
+
+=== 5. Screen 17 in hr — what a Croatian voice would read
+lang: hr | Title: Paper Trail
+    - region "Čekanje odgovora":
+      - heading "Čekanje odgovora" [level=2]
+      - paragraph: Predano 12. stu 2026.
+      - paragraph: Odgovor očekujte između 20. stu 2026. i 27. stu 2026.
+      - progressbar "Prošlo 0 radnih dana od 10"
+      - paragraph: Prošlo 0 radnih dana od 10
+      - paragraph: "1 blagdan u ovom razdoblju: Dan sjećanja na žrtve Domovinskog rata (18. stu 2026.)"
+Elements with their own lang attribute: option[lang=en] "English", option[lang=hr] "Hrvatski", option[lang=ru] "Русский"
+Document name in wallet list (mixed script), hr: Osobna iskaznica · Ивана Šimunić | Dokaz o adresi · Savska 41

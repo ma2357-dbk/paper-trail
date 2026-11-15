@@ -7,6 +7,7 @@ import { Link } from "@/i18n/navigation";
 import { getDirection, routing } from "@/i18n/routing";
 import { LocaleSwitcher } from "@/components/LocaleSwitcher";
 import { OfflineBanner } from "@/components/OfflineBanner";
+import { ui } from "@/lib/ui";
 import "../globals.css";
 
 // Inter ships Latin Extended (č ć đ š ž) and Cyrillic glyphs in every weight.
@@ -42,15 +43,16 @@ export default async function LocaleLayout({ children }: LayoutProps<"/[locale]"
           >
             {t("skipToContent")}
           </a>
-          <header className="flex items-center justify-between gap-4 border-b border-neutral-200 px-4 py-2">
+          {/* flex-wrap: at 320 px the locale switcher drops to a second line instead of overflowing. */}
+          <header className="flex flex-wrap items-center justify-between gap-x-4 gap-y-1 border-b border-neutral-200 px-4 py-2">
             <nav aria-label={t("mainNav")} className="flex items-center gap-4">
-              <Link href="/" className="min-h-11 inline-flex items-center font-semibold">
+              <Link href="/" className={`min-h-11 inline-flex items-center font-semibold ${ui.focus}`}>
                 Paper Trail
               </Link>
-              <Link href="/documents" className="min-h-11 inline-flex items-center text-sm underline underline-offset-2">
+              <Link href="/documents" className={`min-h-11 inline-flex items-center text-sm underline underline-offset-2 ${ui.focus}`}>
                 {t("documents")}
               </Link>
-              <Link href="/journeys" className="min-h-11 inline-flex items-center text-sm underline underline-offset-2">
+              <Link href="/journeys" className={`min-h-11 inline-flex items-center text-sm underline underline-offset-2 ${ui.focus}`}>
                 {t("journeys")}
               </Link>
             </nav>

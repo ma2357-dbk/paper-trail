@@ -13,7 +13,7 @@ const tone: Record<StepStatus, string> = {
 export function StatusBadge({ status }: { status: StepStatus }) {
   const t = useTranslations("catalog.status");
   return (
-    <span className={`inline-block rounded-full border px-2 py-0.5 text-xs font-medium ${tone[status]}`}>
+    <span className={`inline-block self-start rounded-full border px-2 py-0.5 text-xs font-medium ${tone[status]}`}>
       {t(status)}
     </span>
   );

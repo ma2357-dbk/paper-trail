@@ -1,7 +1,9 @@
+import type { Metadata } from "next";
 import { Suspense } from "react";
 import { notFound } from "next/navigation";
 import { connection } from "next/server";
 import { getFormatter, getTranslations } from "next-intl/server";
+import { FocusOnHash } from "@/components/FocusOnHash";
 import { StatusBadge } from "@/components/StatusBadge";
 import { LoadingSkeleton } from "@/components/LoadingSkeleton";
 import { Link } from "@/i18n/navigation";
@@ -10,6 +12,13 @@ import { prisma } from "@/lib/db";
 import { now } from "@/lib/time";
 import { isStepStatus } from "@/lib/stepStatus";
 import { ui } from "@/lib/ui";
+
+export async function generateMetadata({ params }: PageProps<"/[locale]/journeys/[journeyId]/steps">): Promise<Metadata> {
+  const { journeyId } = await params;
+  const tCatalog = await getTranslations("catalog");
+  const journey = await prisma.journey.findUnique({ where: { id: journeyId }, select: { title: true, lifeEventId: true } });
+  return { title: journey ? (journey.title ?? eventTitle(tCatalog, journey.lifeEventId)) : undefined };
+}
 
 /** Screen 16: status of every step in a journey. */
 export default function StepsPage(props: PageProps<"/[locale]/journeys/[journeyId]/steps">) {
@@ -45,8 +54,9 @@ async function StepsContent({ params }: PageProps<"/[locale]/journeys/[journeyId
 
   return (
     <section className="flex flex-col gap-4">
+      <FocusOnHash key={nowMs} />
       <div>
-        <h1 className="text-2xl font-semibold">{title}</h1>
+        <h1 id="steps-title" className="text-2xl font-semibold">{title}</h1>
         <p className="text-neutral-700">{t("progress", { done, total: steps.length })}</p>
         <progress value={done} max={steps.length} className="mt-2 h-2 w-full" aria-label={t("progress", { done, total: steps.length })} />
       </div>

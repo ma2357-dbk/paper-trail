@@ -57,7 +57,7 @@ async function EventsContent() {
               </div>
               <form action={startJourney}>
                 <input type="hidden" name="lifeEventId" value={event.id} />
-                <SubmitButton>{t("start")}</SubmitButton>
+                <SubmitButton aria-label={t("startNamed", { name: eventTitle(tCatalog, event.id) })}>{t("start")}</SubmitButton>
               </form>
             </li>
           ))}

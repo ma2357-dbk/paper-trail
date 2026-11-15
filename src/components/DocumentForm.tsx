@@ -1,7 +1,7 @@
 "use client";
 
 import { useTranslations } from "next-intl";
-import { useActionState, useId, useState } from "react";
+import { useActionState, useEffect, useId, useState } from "react";
 import { SubmitButton } from "@/components/SubmitButton";
 import { ui } from "@/lib/ui";
 import type { DocumentFormState } from "@/app/[locale]/documents/actions";
@@ -25,6 +25,14 @@ export function DocumentForm({ action, documentTypes, initial, currentFile, subm
   const nameInvalid = state.error === "nameRequired" || state.error === "nameTooLong";
   const dateInvalid = state.error === "invalidDate";
   const fileInvalid = state.error === "fileTooLarge" || state.error === "fileType";
+
+  // After a failed submit, focus the field that needs fixing: the alert is
+  // announced and the field reads its message through aria-describedby.
+  useEffect(() => {
+    if (!state.error) return;
+    const field = nameInvalid ? "name" : dateInvalid ? "valid" : fileInvalid ? "file" : "name";
+    document.getElementById(`${baseId}-${field}`)?.focus();
+  }, [state, baseId, nameInvalid, dateInvalid, fileInvalid]);
 
   return (
     <form action={formAction} className="flex flex-col gap-5" noValidate>

@@ -10,7 +10,9 @@ import { addWorkingDays, countWorkingDays } from "./workingDays";
  * fallback (weekends only) instead of crashing.
  */
 
-const BASE_URL = "https://date.nager.at/api/v3";
+// Overridable so a reviewer can demonstrate the failure states without
+// cutting the network (e.g. NAGER_DATE_BASE_URL=http://127.0.0.1:9/api/v3).
+const BASE_URL = process.env.NAGER_DATE_BASE_URL ?? "https://date.nager.at/api/v3";
 const TIMEOUT_MS = 5000;
 
 export type HolidayFailure =
@@ -22,6 +24,18 @@ export type HolidayFailure =
   | "malformed";
 
 export type Holiday = { date: string; localName: string; name: string };
+
+/**
+ * Language of `localName` for the countries a journey can have, so the UI can
+ * mark the holiday name with `lang` for screen readers. Unknown → undefined
+ * (the name is then read in the page language, as before).
+ */
+const HOLIDAY_LANGUAGE: Record<string, string> = {
+  HR: "hr", SI: "sl", RS: "sr", BA: "bs", ME: "sr", AT: "de", DE: "de", IT: "it", HU: "hu", CZ: "cs", SK: "sk", PL: "pl", UA: "uk", RU: "ru", GB: "en", IE: "en",
+};
+export function holidayLanguage(countryCode: string | null | undefined): string | undefined {
+  return countryCode ? HOLIDAY_LANGUAGE[countryCode] : undefined;
+}
 
 export type HolidayResult =
   | { ok: true; holidays: Holiday[] }

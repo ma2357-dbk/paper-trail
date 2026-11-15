@@ -1,0 +1,31 @@
+flowchart LR
+    subgraph Browser["Browser (phone or desktop)"]
+        RSC["Server-rendered HTML + React islands<br/>(forms, offline banner, locale switcher)"]
+    end
+
+    subgraph Next["Next.js 16 app (one Node process)"]
+        Proxy["proxy.ts<br/>next-intl middleware<br/>/ → /en · locale cookie · header"]
+        Pages["App Router pages<br/>src/app/[locale]/…<br/>Suspense + skeletons"]
+        Actions["Server Actions<br/>documents/actions.ts<br/>steps/actions.ts"]
+        FileRoute["Route handler<br/>/api/documents/[id]/file"]
+        I18n["next-intl<br/>messages/en·hr·ru.json<br/>Intl.* formatting"]
+        Holidays["nagerDate.ts + workingDays.ts<br/>(server-only, cached 24 h)"]
+        Prisma["Prisma 7 client<br/>better-sqlite3 adapter"]
+    end
+
+    DB[("SQLite<br/>prisma/dev.db<br/>schema + migrations + seed in repo")]
+    Nager[["Nager.Date REST API<br/>date.nager.at/api/v3<br/>PublicHolidays/{year}/{CC}"]]
+    RC[["REST Countries API<br/>(Maroje, find-office screen)"]]
+
+    RSC -- "GET page" --> Proxy --> Pages
+    RSC -- "form POST" --> Proxy --> Actions
+    RSC -- "img src" --> FileRoute
+    Pages --> I18n
+    Pages --> Prisma
+    Actions --> Prisma
+    FileRoute --> Prisma
+    Pages --> Holidays
+    Actions --> Holidays
+    Prisma --> DB
+    Holidays -- "HTTPS, no key, 5 s timeout" --> Nager
+    Pages -. "planned" .-> RC
